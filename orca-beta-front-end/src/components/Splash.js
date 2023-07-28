@@ -5,6 +5,7 @@ import Section from './Section';
 import HeaderSection from './HeaderSection';
 import TeamSection from './TeamSection';
 import PricingSection from './PricingSection';
+import ZoomLineChart from './ZoomLineChart';
 class Splash extends React.Component {
     render() {
         return (
@@ -15,6 +16,7 @@ class Splash extends React.Component {
                 <TeamSection></TeamSection>
                 <PricingSection></PricingSection>
                 <Footer></Footer>
+                <ZoomLineChart></ZoomLineChart>
             </main>
         );
     }
