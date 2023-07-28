@@ -11,6 +11,7 @@ class NavBar extends React.Component {
                             <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
                             <li class="nav-item"><a class="nav-link" href="about.html">Signup / Login</a></li>
                             <li class="nav-item"><a class="nav-link" href="contact.html">Live Charts</a></li>
+                            <li class="nav-item"><a class="nav-link" href="contact.html">Historical Odds Database</a></li>
                             <li class="nav-item"><a class="nav-link" href="pricing.html">Analysis Tools</a></li>
                             <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
                             <li class="nav-item dropdown">
