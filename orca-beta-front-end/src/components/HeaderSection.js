@@ -14,7 +14,7 @@ class HeaderSection extends React.Component {
                                 Odds Charts, in the NFL and NBA
                                 </p>
                                 <a class="btn btn-primary btn-lg" href="#scroll-target">
-                                    Get Started
+                                    View Live Odds
                                     </a>
                             </div>
                         </div>

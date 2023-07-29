@@ -15,9 +15,7 @@ class Section extends React.Component {
                                 quibusdam expedita, maiores eaque quisquam.
                                 </p>
                         </div>
-                        <a class="btn btn-primary btn-lg" href="#scroll-target">
-                            View Live Games
-                        </a>
+                        
                     </div>
                 </div>
             </section>
