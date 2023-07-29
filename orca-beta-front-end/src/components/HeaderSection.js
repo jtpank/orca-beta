@@ -14,7 +14,9 @@ class HeaderSection extends React.Component {
                                     Blanditiis impedit numquam libero molestiae et fugit cupiditate, 
                                     quibusdam expedita, maiores eaque quisquam.
                                 </p>
-                                <a class="btn btn-primary btn-lg" href="#scroll-target">Read our story</a>
+                                <a class="btn btn-primary btn-lg" href="#scroll-target">
+                                    Get Started
+                                    </a>
                             </div>
                         </div>
                     </div>

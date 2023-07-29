@@ -24,19 +24,11 @@ class PricingSection extends React.Component {
                                     </li>
                                     <li class="mb-2">
                                         <i class="bi bi-check text-primary"></i>
-                                        5GB storage
+                                        Live Game Odds
                                     </li>
                                     <li class="mb-2">
                                         <i class="bi bi-check text-primary"></i>
-                                        Unlimited public projects
-                                    </li>
-                                    <li class="mb-2">
-                                        <i class="bi bi-check text-primary"></i>
-                                        Community access
-                                    </li>
-                                    <li class="mb-2 text-muted">
-                                        <i class="bi bi-x"></i>
-                                        Unlimited private projects
+                                        Historical Data For Last Season
                                     </li>
                                     <li class="mb-2 text-muted">
                                         <i class="bi bi-x"></i>
@@ -44,11 +36,11 @@ class PricingSection extends React.Component {
                                     </li>
                                     <li class="mb-2 text-muted">
                                         <i class="bi bi-x"></i>
-                                        Free linked domain
+                                        Expert Analysis Picks
                                     </li>
                                     <li class="text-muted">
                                         <i class="bi bi-x"></i>
-                                        Monthly status reports
+                                        Example 3
                                     </li>
                                 </ul>
                                 <div class="d-grid"><a class="btn btn-outline-primary" href="#!">Choose plan</a></div>
@@ -63,41 +55,33 @@ class PricingSection extends React.Component {
                                     Pro
                                 </div>
                                 <div class="mb-3">
-                                    <span class="display-4 fw-bold">$9</span>
+                                    <span class="display-4 fw-bold">$49</span>
                                     <span class="text-muted">/ mo.</span>
                                 </div>
                                 <ul class="list-unstyled mb-4">
                                     <li class="mb-2">
                                         <i class="bi bi-check text-primary"></i>
-                                        <strong>5 users</strong>
+                                        <strong>1 users</strong>
                                     </li>
                                     <li class="mb-2">
                                         <i class="bi bi-check text-primary"></i>
-                                        5GB storage
+                                        Live Game Odds
                                     </li>
                                     <li class="mb-2">
                                         <i class="bi bi-check text-primary"></i>
-                                        Unlimited public projects
+                                        Historical Odds Database
                                     </li>
-                                    <li class="mb-2">
-                                        <i class="bi bi-check text-primary"></i>
-                                        Community access
-                                    </li>
-                                    <li class="mb-2">
-                                        <i class="bi bi-check text-primary"></i>
-                                        Unlimited private projects
-                                    </li>
-                                    <li class="mb-2">
+                                    <li class="mb-2 text">
                                         <i class="bi bi-check text-primary"></i>
                                         Dedicated support
                                     </li>
-                                    <li class="mb-2">
-                                        <i class="bi bi-check text-primary"></i>
-                                        Free linked domain
+                                    <li class="mb-2 text-muted">
+                                        <i class="bi bi-x"></i>
+                                        Expert Analysis Picks
                                     </li>
                                     <li class="text-muted">
                                         <i class="bi bi-x"></i>
-                                        Monthly status reports
+                                        Example 3
                                     </li>
                                 </ul>
                                 <div class="d-grid"><a class="btn btn-primary" href="#!">Choose plan</a></div>
@@ -107,9 +91,9 @@ class PricingSection extends React.Component {
                     <div class="col-lg-6 col-xl-4">
                         <div class="card">
                             <div class="card-body p-5">
-                                <div class="small text-uppercase fw-bold text-muted">Enterprise</div>
+                                <div class="small text-uppercase fw-bold text-muted">Expert</div>
                                 <div class="mb-3">
-                                    <span class="display-4 fw-bold">$49</span>
+                                    <span class="display-4 fw-bold">$99</span>
                                     <span class="text-muted">/ mo.</span>
                                 </div>
                                 <ul class="list-unstyled mb-4">
@@ -119,32 +103,23 @@ class PricingSection extends React.Component {
                                     </li>
                                     <li class="mb-2">
                                         <i class="bi bi-check text-primary"></i>
-                                        5GB storage
+                                        Live Game Odds
                                     </li>
                                     <li class="mb-2">
                                         <i class="bi bi-check text-primary"></i>
-                                        Unlimited public projects
+                                        Historical Odds Database
                                     </li>
-                                    <li class="mb-2">
+                                    <li class="mb-2 text">
                                         <i class="bi bi-check text-primary"></i>
-                                        Community access
+                                        Dedicated Support
                                     </li>
-                                    <li class="mb-2">
+                                    <li class="mb-2 text">
                                         <i class="bi bi-check text-primary"></i>
-                                        Unlimited private projects
+                                        Expert Analysis Picks
                                     </li>
-                                    <li class="mb-2">
+                                    <li class="mb-2 text">
                                         <i class="bi bi-check text-primary"></i>
-                                        Dedicated support
-                                    </li>
-                                    <li class="mb-2">
-                                        <i class="bi bi-check text-primary"></i>
-                                        <strong>Unlimited</strong>
-                                        linked domains
-                                    </li>
-                                    <li class="text-muted">
-                                        <i class="bi bi-check text-primary"></i>
-                                        Monthly status reports
+                                        Example 3
                                     </li>
                                 </ul>
                                 <div class="d-grid"><a class="btn btn-outline-primary" href="#!">Choose plan</a></div>

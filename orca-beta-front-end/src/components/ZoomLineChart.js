@@ -21,7 +21,8 @@ class ZoomLineChart extends React.Component {
             chart: {
                 type: 'area',
                 stacked: false,
-                height: 350,
+                height: '10%',
+                width: '50%',
                 zoom: {
                   type: 'x',
                   enabled: true,
