@@ -55,7 +55,7 @@ class PricingSection extends React.Component {
                                     Pro
                                 </div>
                                 <div class="mb-3">
-                                    <span class="display-4 fw-bold">$49</span>
+                                    <span class="display-4 fw-bold">$39</span>
                                     <span class="text-muted">/ mo.</span>
                                 </div>
                                 <ul class="list-unstyled mb-4">
@@ -93,7 +93,7 @@ class PricingSection extends React.Component {
                             <div class="card-body p-5">
                                 <div class="small text-uppercase fw-bold text-muted">Expert</div>
                                 <div class="mb-3">
-                                    <span class="display-4 fw-bold">$99</span>
+                                    <span class="display-4 fw-bold">$199</span>
                                     <span class="text-muted">/ mo.</span>
                                 </div>
                                 <ul class="list-unstyled mb-4">

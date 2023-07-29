@@ -9,10 +9,9 @@ class HeaderSection extends React.Component {
                             <div class="text-center my-5">
                                 <h1 class="fw-bolder mb-3">Eat the Sharks.</h1>
                                 <p class="lead fw-normal text-muted mb-4">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                                    Iusto est, ut esse a labore aliquam beatae expedita. 
-                                    Blanditiis impedit numquam libero molestiae et fugit cupiditate, 
-                                    quibusdam expedita, maiores eaque quisquam.
+                                We help you make better bets on every game, with our
+                                unparalleld historical database, and easy to use Live
+                                Odds Charts, in the NFL and NBA
                                 </p>
                                 <a class="btn btn-primary btn-lg" href="#scroll-target">
                                     Get Started
