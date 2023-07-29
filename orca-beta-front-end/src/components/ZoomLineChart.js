@@ -38,7 +38,7 @@ class ZoomLineChart extends React.Component {
                 size: 0,
               },
               title: {
-                text: 'Stock Price Movement',
+                text: 'Historical Odds Data',
                 align: 'left'
               },
               fill: {

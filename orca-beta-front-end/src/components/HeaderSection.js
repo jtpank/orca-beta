@@ -8,7 +8,12 @@ class HeaderSection extends React.Component {
                         <div class="col-lg-8 col-xxl-6">
                             <div class="text-center my-5">
                                 <h1 class="fw-bolder mb-3">Eat the Sharks.</h1>
-                                <p class="lead fw-normal text-muted mb-4">Start Bootstrap was built on the idea that quality, functional website templates and themes should be available to everyone. Use our open source, free products, or support us by purchasing one of our premium products or services.</p>
+                                <p class="lead fw-normal text-muted mb-4">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                                    Iusto est, ut esse a labore aliquam beatae expedita. 
+                                    Blanditiis impedit numquam libero molestiae et fugit cupiditate, 
+                                    quibusdam expedita, maiores eaque quisquam.
+                                </p>
                                 <a class="btn btn-primary btn-lg" href="#scroll-target">Read our story</a>
                             </div>
                         </div>
