@@ -5,7 +5,7 @@ class PricingSection extends React.Component {
             <section class="bg-light py-5">
             <div class="container px-5 my-5">
                 <div class="text-center mb-5">
-                    <h1 class="fw-bolder">Pay as you grow</h1>
+                    <h1 class="fw-bolder">Pay as you perform</h1>
                     <p class="lead fw-normal text-muted mb-0">With our no hassle pricing plans</p>
                 </div>
                 <div class="row gx-5 justify-content-center">

@@ -13,8 +13,8 @@ class Splash extends React.Component {
                 <NavBar></NavBar>
                 <HeaderSection></HeaderSection>
                 <Section></Section>
-                <TeamSection></TeamSection>
                 <PricingSection></PricingSection>
+                <TeamSection></TeamSection>
                 <Footer></Footer>
                 <ZoomLineChart></ZoomLineChart>
             </main>
