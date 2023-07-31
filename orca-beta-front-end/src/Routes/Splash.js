@@ -1,11 +1,11 @@
 import React from 'react';
-import Footer from './Footer';
-import NavBar from './NavBar';
-import Section from './Section';
-import HeaderSection from './HeaderSection';
-import TeamSection from './TeamSection';
-import PricingSection from './PricingSection';
-import ZoomLineChart from './ZoomLineChart';
+import Footer from '../components/Footer';
+import NavBar from '../components/NavBar';
+import Section from '../components/Section';
+import HeaderSection from '../components/HeaderSection';
+import TeamSection from '../components/TeamSection';
+import PricingSection from '../components/PricingSection';
+import ZoomLineChart from '../components/ZoomLineChart';
 class Splash extends React.Component {
     render() {
         return (
@@ -16,7 +16,6 @@ class Splash extends React.Component {
                 <PricingSection></PricingSection>
                 <TeamSection></TeamSection>
                 <Footer></Footer>
-                <ZoomLineChart></ZoomLineChart>
             </main>
         );
     }
