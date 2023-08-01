@@ -4,6 +4,19 @@ import Footer from '../components/Footer';
 import ZoomLineChart from '../components/ZoomLineChart';
 import DateSelect from '../components/DateSelect';
 class LiveCharts extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            _selected_sport: 'None',
+        }
+        this.handleSetSport = this.handleSetSport.bind(this);
+    }
+      handleSetSport(sport) {
+        this.setState({
+            _selected_sport: sport,
+        })
+        console.log(sport);
+    }
     render() {
         return (
             <main class="flex-shrink-0">
@@ -12,10 +25,16 @@ class LiveCharts extends React.Component {
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
-                        <button type="button" class="btn btn-primary btn-block mb-4">NFL</button>
+                        <button type="button" 
+                        class="btn btn-primary btn-block mb-4"
+                        onClick={() => this.handleSetSport('NFL')}
+                        >NFL</button>
                         </div>
                         <div class="col-md-6 col-sm-12">
-                        <button type="button" class="btn btn-primary btn-block mb-4">NBA</button>
+                        <button type="button" 
+                        class="btn btn-primary btn-block mb-4"
+                        onClick={() => this.handleSetSport('NBA')}
+                        >NBA</button>
                         </div>
                     </div>
                 </div>
