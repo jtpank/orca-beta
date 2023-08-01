@@ -1,0 +1,13 @@
+.my-div {
+    height: 100px;
+    text-align: center;
+    line-height: 100px;
+    color: #fff;
+    background-color: #007bff;
+    transition: background-color 0.3s;
+    margin: 5px;
+}
+
+.my-div:hover {
+    background-color: #0056b3;
+}

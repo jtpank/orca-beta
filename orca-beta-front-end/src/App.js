@@ -8,6 +8,7 @@ import ExpertNuggets from './Routes/ExpertNuggets';
 import Faq from './Routes/Faq';
 import Nfl from './Routes/Nfl';
 import Nba from './Routes/Nba';
+import './styles/styles.css';
 class App extends React.Component {
   constructor(props){
     super(props);

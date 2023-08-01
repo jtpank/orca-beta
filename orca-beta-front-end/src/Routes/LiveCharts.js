@@ -9,8 +9,18 @@ class LiveCharts extends React.Component {
             <main class="flex-shrink-0">
                 <NavBar></NavBar>
                 <h1>Charts Page</h1>
-                <DateSelect></DateSelect>
-                <ZoomLineChart></ZoomLineChart>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                        <button type="button" class="btn btn-primary btn-block mb-4">NFL</button>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                        <button type="button" class="btn btn-primary btn-block mb-4">NBA</button>
+                        </div>
+                    </div>
+                </div>
+                {/* <DateSelect></DateSelect>
+                <ZoomLineChart></ZoomLineChart> */}
                 <Footer></Footer>
             </main>
         );
