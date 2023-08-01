@@ -1,3 +1,6 @@
+html {
+    overflow-y: scroll;
+  }
 .my-div {
     height: 100px;
     text-align: center;
