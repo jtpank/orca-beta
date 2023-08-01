@@ -40,14 +40,16 @@ class LiveCharts extends React.Component {
         if(this.state._selected_sport != 'None')
         {
             renderedContent = <>
-                <div class="col-md-3 col-sm-3">
+                <div className="col-md-3 col-sm-3">
                     <button type="button" 
                             class="btn btn-primary btn-block mb-4"
                             onClick={this.handleResetSport}
                     >Back</button>
                 </div>
                 <DateSelect></DateSelect>
+                <div className="col-md-6 col-sm-6">
                 <ZoomLineChart></ZoomLineChart>
+                </div>
             </>
         }
         return (
