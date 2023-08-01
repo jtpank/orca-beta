@@ -10,36 +10,51 @@ class LiveCharts extends React.Component {
             _selected_sport: 'None',
         }
         this.handleSetSport = this.handleSetSport.bind(this);
+        this.handleResetSport = this.handleResetSport.bind(this);
     }
       handleSetSport(sport) {
         this.setState({
             _selected_sport: sport,
         })
-        console.log(sport);
+    }
+      handleResetSport() {
+        this.setState({
+            _selected_sport: 'None',
+        })
     }
     render() {
-        return (
-            <main class="flex-shrink-0">
-                <NavBar></NavBar>
-                <h1>Charts Page</h1>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 col-sm-12">
+        let renderedContent = <>
+                    <div class="col-md-3 col-sm-3">
                         <button type="button" 
                         class="btn btn-primary btn-block mb-4"
                         onClick={() => this.handleSetSport('NFL')}
                         >NFL</button>
                         </div>
-                        <div class="col-md-6 col-sm-12">
+                        <div class="col-md-3 col-sm-3">
                         <button type="button" 
                         class="btn btn-primary btn-block mb-4"
                         onClick={() => this.handleSetSport('NBA')}
                         >NBA</button>
-                        </div>
                     </div>
+                    </>
+        if(this.state._selected_sport != 'None')
+        {
+            renderedContent = <>
+                <button type="button" 
+                        class="btn btn-primary btn-block mb-4"
+                        onClick={this.handleResetSport}
+                >Back</button>
+                <DateSelect></DateSelect>
+                <ZoomLineChart></ZoomLineChart>
+            </>
+        }
+        return (
+            <main class="flex-shrink-0">
+                <NavBar></NavBar>
+                <h1>Charts Page</h1>
+                <div class="container px-5">
+                    {renderedContent}
                 </div>
-                {/* <DateSelect></DateSelect>
-                <ZoomLineChart></ZoomLineChart> */}
                 <Footer></Footer>
             </main>
         );
