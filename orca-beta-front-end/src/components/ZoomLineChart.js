@@ -123,7 +123,7 @@ class ZoomLineChart extends React.Component {
             annotations: {
               xaxis: [
                 {
-                  x: 25, // The data point you want to add the line to
+                  x: "2023-08-01T00:06:00Z,30", // The data point you want to add the line to
                   borderColor: "#00E396",
                   label: {
                     borderColor: "#00E396",
