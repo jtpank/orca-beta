@@ -62,6 +62,16 @@ class ZoomLineChart extends React.Component {
                   }
                 }
               },
+            yaxis: {
+              title: {
+                text: "Y Axis Label",
+                style: {
+                  fontSize: "14px",
+                  fontWeight: 600,
+                  cssClass: "y-axis-label",
+                },
+              },
+            },
             xaxis: {
               categories: [
                 "2023-08-01T00:00:00Z,10",
@@ -117,7 +127,15 @@ class ZoomLineChart extends React.Component {
                 "2023-08-01T00:08:20Z,42",
                 "2023-08-01T00:08:30Z,38",
                 "2023-08-01T00:08:40Z,33",
-              ]
+              ],
+              title: {
+                text: "X Axis Label",
+                style: {
+                  fontSize: "14px",
+                  fontWeight: 600,
+                  cssClass: "x-axis-label",
+                },
+              },
               
             },
             annotations: {
