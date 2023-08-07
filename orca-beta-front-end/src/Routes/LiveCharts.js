@@ -8,16 +8,28 @@ class LiveCharts extends React.Component {
         super(props);
         this.state = {
             _selected_sport: 'None',
+            _selected_book: 'None',
+
         }
         this.handleSetSport = this.handleSetSport.bind(this);
         this.handleResetSport = this.handleResetSport.bind(this);
     }
-      handleSetSport(sport) {
+    handleSetBook(book) {
+        this.setState({
+            _selected_book: book,
+        })
+    }
+    handleResetBook() {
+        this.setState({
+            _selected_book: 'None',
+        })
+    }
+    handleSetSport(sport) {
         this.setState({
             _selected_sport: sport,
         })
     }
-      handleResetSport() {
+    handleResetSport() {
         this.setState({
             _selected_sport: 'None',
         })
@@ -47,6 +59,12 @@ class LiveCharts extends React.Component {
                     >Back</button>
                 </div>
                 <DateSelect></DateSelect>
+                <select class="form-select" aria-label="Select Book">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
                 <div className="col-md-6 col-sm-6">
                 <ZoomLineChart></ZoomLineChart>
                 </div>
