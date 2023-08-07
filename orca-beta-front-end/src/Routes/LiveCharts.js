@@ -59,8 +59,8 @@ class LiveCharts extends React.Component {
                     >Back</button>
                 </div>
                 <DateSelect></DateSelect>
-                <select class="form-select" aria-label="Select Book">
-                    <option selected>Open this select menu</option>
+                <select class="form-select" aria-label="book-select">
+                    <option selected>Select a book</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
