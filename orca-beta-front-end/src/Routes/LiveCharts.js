@@ -9,10 +9,15 @@ class LiveCharts extends React.Component {
         this.state = {
             _selected_sport: 'None',
             _selected_book: 'None',
+            _selected_date: null,
 
         }
         this.handleSetSport = this.handleSetSport.bind(this);
         this.handleResetSport = this.handleResetSport.bind(this);
+        this.handleSetBook = this.handleSetBook.bind(this);
+        this.handleResetBook = this.handleResetBook.bind(this);
+        this.handleSetDate = this.handleSetDate.bind(this);
+        this.handleResetDate = this.handleResetDate.bind(this);
     }
     handleSetBook(book) {
         this.setState({
@@ -32,6 +37,16 @@ class LiveCharts extends React.Component {
     handleResetSport() {
         this.setState({
             _selected_sport: 'None',
+        })
+    }
+    handleSetDate(date) {
+        this.setState({
+            _selected_date: date,
+        })
+    }
+    handleResetDate() {
+        this.setState({
+            _selected_date: null,
         })
     }
     render() {
@@ -58,7 +73,10 @@ class LiveCharts extends React.Component {
                             onClick={this.handleResetSport}
                     >Back</button>
                 </div>
-                <DateSelect></DateSelect>
+                <DateSelect
+                handleSetDate={this.handleSetDate}
+                selectedDate={this.state._selected_date}
+                ></DateSelect>
                 <select class="form-select" aria-label="book-select">
                     <option selected>Select a book</option>
                     <option value="1">One</option>
