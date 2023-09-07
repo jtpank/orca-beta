@@ -52,12 +52,20 @@ class LiveCharts extends React.Component {
     }
 
     //Fetch from the-odds-api for list of upcoming games
-    async fetchLiveAndUpcomingGames_customApi(sport, endpoint, dateIsoString)
+    async fetchLiveAndUpcomingNflGames_theoddsapi(dateObj)
     {
-        //endpoint should be 'scores'
-        let additionalParams = {};
-        const fullAPI = `http://localhost:5000/api/get/live-nfl-scores-data?sport=${sport}&date=${dateIsoString}`;
-        // const fullAPI = buildUrlFor_customApi(sport, endpoint, dateIsoString, additionalParams);
+        const oddsAPI = 'https://api.the-odds-api.com/v4/sports/americanfootball_nfl/scores';
+        let tempDateObj = new Date(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate());
+        tempDateObj.setHours(tempDateObj.getHours()-7,30,0);
+        const formattedStartDate = tempDateObj.toISOString().substring(0, 19) + 'Z';
+        // console.log(formattedStartDate)
+        //want to search in range [formattedDate, formattedDate+24 hours)
+        // /odds/&regions=us&markets=h2h,spreads&oddsFormat=american&date=${formattedStartDate}`;
+        //example: https://api.the-odds-api.com/v4/sports/americanfootball_nfl/scores/?apiKey=c12e854a72219eb10a45e79013747e40
+        // const apiKey = process.env.REACT_APP_ODDS_API_API_KEY;
+        const apiKey = "c12e854a72219eb10a45e79013747e40";
+        const fullAPI = `${oddsAPI}?apiKey=${apiKey}`;
+        
         //Check cache first
         const cachedResponse = sessionStorage.getItem(fullAPI);
         if (cachedResponse) {
