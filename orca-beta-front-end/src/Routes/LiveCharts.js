@@ -12,6 +12,7 @@ class LiveCharts extends React.Component {
             _selected_date: null,
 
         }
+        this.fetchLiveAndUpcomingGames_customApi  = this.fetchLiveAndUpcomingGames_customApi.bind(this);
         this.handleSetSport = this.handleSetSport.bind(this);
         this.handleResetSport = this.handleResetSport.bind(this);
         this.handleSetBook = this.handleSetBook.bind(this);
@@ -49,6 +50,43 @@ class LiveCharts extends React.Component {
             _selected_date: null,
         })
     }
+
+    //Fetch from the-odds-api for list of upcoming games
+    async fetchLiveAndUpcomingGames_customApi(sport, endpoint, dateIsoString)
+    {
+        //endpoint should be 'scores'
+        let additionalParams = {};
+        const fullAPI = `http://localhost:5000/api/get/live-nfl-scores-data?sport=${sport}&date=${dateIsoString}`;
+        // const fullAPI = buildUrlFor_customApi(sport, endpoint, dateIsoString, additionalParams);
+        //Check cache first
+        const cachedResponse = sessionStorage.getItem(fullAPI);
+        if (cachedResponse) {
+          const data = JSON.parse(cachedResponse);
+          return data;
+        }
+        else
+        {
+            const externResponse = await fetch(fullAPI)
+            .then(async (response) => {
+                const data = await response.json();
+                // check for error response
+                if (!response.ok) {
+                // get error message from body or default to response statusText
+                const error = (data && data.message) || response.statusText;
+                return Promise.reject(error);
+                };
+                //Store in the cache
+                sessionStorage.setItem(fullAPI, JSON.stringify(data.data));
+                return data.data;
+            }).catch((error) => {
+                //this.setState({ errorMessage: error.toString() });
+                console.error('There was an error!', error);
+            });
+            return externResponse;
+        }
+    }
+
+
     render() {
         let renderedContent = <>
                     <div class="col-md-3 col-sm-3">
@@ -73,17 +111,21 @@ class LiveCharts extends React.Component {
                             onClick={this.handleResetSport}
                     >Back</button>
                 </div>
+                <div className="row mb-4">
                 <DateSelect
                 handleSetDate={this.handleSetDate}
                 selectedDate={this.state._selected_date}
                 ></DateSelect>
+                </div>
+                <div className="row mb-4">
                 <select class="form-select" aria-label="book-select">
                     <option selected>Select a book</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                 </select>
-                <div className="col-md-6 col-sm-6">
+                </div>
+                <div className="row mb-4">
                 <ZoomLineChart></ZoomLineChart>
                 </div>
             </>
