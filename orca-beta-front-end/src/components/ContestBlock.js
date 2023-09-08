@@ -3,22 +3,16 @@ import {Link} from 'react-router-dom';
 class ContestBlock extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-          isHighlighted: false,
-        };
       this.handleClick = this.handleClick.bind(this);
       }
       handleClick()
       {
-        this.props.handleSelectContest(this.props.game)
-        this.setState((prevState) => ({
-          isHighlighted: !prevState.isHighlighted,
-        }));
+        this.props.handleSelectContest(this.props.game);
+        this.props.handleSelectContestBlock(this.props.game.id);
       }
   render() {
-    const { game } = this.props;
-    const { isHighlighted } = this.state;
-    const highlightClass = isHighlighted ? '-highlighted' : '';
+    const { game, isSelected } = this.props;
+    const highlightClass = isSelected ? '-highlighted' : '';
     return (
           <div className={`contest-block${highlightClass}`} onClick={this.handleClick}>
             <p>Commence time: {game.commence_time}</p>

@@ -4,8 +4,9 @@ class ContestTemplate extends Component {
     constructor(props) {
         super(props);
         this.state = {
+          selectedGameId: null,
         };
-        
+        this.handleSelectContestBlock = this.handleSelectContestBlock.bind(this);
       }
     async componentDidMount()
     {
@@ -17,6 +18,9 @@ class ContestTemplate extends Component {
         this.props.handleFetchAndFilter_theoddsapi(isoCurrentDateTime);
     }
 
+    handleSelectContestBlock(selectedGameId) {
+      this.setState({ selectedGameId });
+    };
 
   render() {
     let arrayContestBlocks = [];
@@ -29,6 +33,8 @@ class ContestTemplate extends Component {
                               game={game}
                               contest_game_id={this.props.contest_game_id}
                               setContestGameId={this.props.setContestGameId}
+                              isSelected={game.id === this.state.selectedGameId}
+                              handleSelectContestBlock={this.handleSelectContestBlock}
                               handleSelectContest={this.props.handleSelectContest}
                               ></ContestBlock>
           arrayContestBlocks.push(contestBlock);
