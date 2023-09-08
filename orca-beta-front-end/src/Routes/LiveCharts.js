@@ -12,7 +12,7 @@ class LiveCharts extends React.Component {
             _selected_sport: 'None',
             _selected_book: 'None',
             _selected_date: null,
-            _selected_contest: {},
+            _selected_contest: {"id": null},
             _game_array: [],
 
         }
