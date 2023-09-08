@@ -29,6 +29,7 @@ class ContestTemplate extends Component {
                               game={game}
                               contest_game_id={this.props.contest_game_id}
                               setContestGameId={this.props.setContestGameId}
+                              handleSelectContest={this.props.handleSelectContest}
                               ></ContestBlock>
           arrayContestBlocks.push(contestBlock);
       }

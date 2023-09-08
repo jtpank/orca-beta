@@ -12,11 +12,11 @@ class DateSelect extends React.Component {
     render() {
         return (
             <div className="container mt-4">
-                <h2>Select Date Below</h2>
                 <DatePicker
                 onChange={this.handleDateChange}
-                value={this.props.selectedDate}
+                selected={this.props.selectedDate}
                 format="YYYY-MM-DD HH:mm:ss"
+                placeholderText="Please select date"
                 />
                 {this.props.selectedDate && <p>Selected Date: {this.props.selectedDate.toString()}</p>}
             </div>
