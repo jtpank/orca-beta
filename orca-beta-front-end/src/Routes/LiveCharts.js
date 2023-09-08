@@ -216,32 +216,8 @@ class LiveCharts extends React.Component {
                 </div>
             </>
         }
-        if(this.state._selected_date)
+        if(this.state._selected_sport != 'None' && this.state._selected_date)
         {
-            renderedContent = <>
-                <div className="col-md-3 col-sm-3">
-                    <button type="button" 
-                            class="btn btn-primary btn-block mb-4"
-                            onClick={this.handleReset}
-                    >Back</button>
-                </div>
-                <div className="row mb-4">
-                <DateSelect
-                handleSetDate={this.handleSetDate}
-                selectedDate={this.state._selected_date}
-                ></DateSelect>
-                </div>
-                <div className="row mb-4">
-                {/* <select class="form-select" aria-label="book-select">
-                    <option selected>Select a book</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select> */}
-                </div>
-                <div className="row mb-4">
-                </div>
-            </>
             renderedContests = <>
                 <ContestTemplate
                 handleFetchAndFilter_theoddsapi={this.handleFetchAndFilter_theoddsapi}
@@ -250,10 +226,14 @@ class LiveCharts extends React.Component {
                 >
                 </ContestTemplate>
             </>
-            // renderedChart = <>
-            //     <ZoomLineChart></ZoomLineChart>
-            // </>
         }
+        if(this.state._selected_sport != 'None' && this.state._selected_date && Object.values(this.state._selected_contest).every(value => value !== null))
+        {
+            renderedChart = <>
+                <ZoomLineChart></ZoomLineChart>
+            </>
+        }
+
         return (
             <main class="flex-shrink-0">
                 <NavBar></NavBar>
