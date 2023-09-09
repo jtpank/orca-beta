@@ -15,10 +15,11 @@ class DateSelect extends React.Component {
                 <DatePicker
                 onChange={this.handleDateChange}
                 selected={this.props.selectedDate}
-                format="YYYY-MM-DD HH:mm:ss"
+                minDate={new Date()}
+                format="yyyy-MM-dd'T'HH:mm:ss'Z'"
                 placeholderText="Please select date"
                 />
-                {this.props.selectedDate && <p>Selected Date: {this.props.selectedDate.toString()}</p>}
+                {this.props.selectedDate && <p>Selected Date: {this.props.selectedDate.toISOString()}</p>}
             </div>
             );
         }

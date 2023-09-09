@@ -7,21 +7,25 @@ class ContestTemplate extends Component {
           selectedGameId: null,
         };
         this.handleSelectContestBlock = this.handleSelectContestBlock.bind(this);
+    
       }
-    async componentDidMount()
-    {
-        const sportField = this.props.oddsApiSportKey;
-        const endpoint = "scores";
-        const currentDateTime = new Date();
-        currentDateTime.setHours(0, 0, 0, 0);
-        const isoCurrentDateTime = currentDateTime.toISOString().substring(0, 19) + 'Z';
-        this.props.handleFetchAndFilter_theoddsapi(isoCurrentDateTime);
-    }
+      componentDidMount() {
+        this.props.handleFetchAndFilter_theoddsapi();
+      }
+      componentDidUpdate(prevProps) {
+          if (this.props.selectedDate !== prevProps.selectedDate) {
+            this.setState({
+              selectedGameId: null,
+            })
+            // This function will be called whenever parentState changes
+            this.props.handleFetchAndFilter_theoddsapi();
+          }
+        }
 
-    handleSelectContestBlock(selectedGameId) {
-      this.setState({ selectedGameId });
-    };
-
+      handleSelectContestBlock(selectedGameId) {
+        this.setState({ selectedGameId });
+      };
+    
   render() {
     let arrayContestBlocks = [];
     if(this.props.game_array)
@@ -40,9 +44,13 @@ class ContestTemplate extends Component {
           arrayContestBlocks.push(contestBlock);
       }
     }
+      
     return (
         <div>
             Sport Template
+            <p>
+              {this.props.selectedDate.toISOString()}
+            </p>
             <div>
                 {arrayContestBlocks}
             </div>

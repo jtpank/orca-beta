@@ -5,6 +5,7 @@ import ZoomLineChart from '../components/ZoomLineChart';
 import DateSelect from '../components/DateSelect';
 import filterOddsApiData from '../logic/filterOddsApiData';
 import ContestTemplate from '../components/ContestTemplate';
+import parseOddsApiUpcomingGames_returnCurrentGames from '../logic/parseOddsApiUpcomingGames_returnCurrentGames';
 class LiveCharts extends React.Component {
     constructor(props){
         super(props);
@@ -57,10 +58,15 @@ class LiveCharts extends React.Component {
             _selected_sport: 'None',
         })
     }
-    async handleSetDate(date) {
-        this.setState({
+    handleSetDate(date) {
+        console.log("handleSetDate line 62 in LiveChart.js fired")
+        this.handleResetSelectContest();
+        this.setState((prevState) => ({
             _selected_date: date,
-        })
+          }), () => {
+            // This callback is called after the state has been updated.
+            // console.log("State has been updated:", this.state._selected_date);
+          });
     }
     handleResetDate() {
         this.setState({
@@ -91,17 +97,22 @@ class LiveCharts extends React.Component {
     //Fetch from the-odds-api for list of upcoming games
     async fetchLiveAndUpcomingNflGames_theoddsapi()
     {
-        const oddsAPI = 'https://api.the-odds-api.com/v4/sports/americanfootball_nfl/scores';
+        let isoCurrentDateTime = null;
+        if(this.state._selected_date)
+        {
+            isoCurrentDateTime = this.state._selected_date.toISOString().substring(0, 19) + 'Z';
+        }
         // let tempDateObj = new Date(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate());
         // tempDateObj.setHours(tempDateObj.getHours()-7,30,0);
-        // const formattedStartDate = dateStr.substring(0, 19) + 'Z';
+        // const formattedStartDate = isoCurrentDateTime.substring(0, 19) + 'Z';
         // console.log(formattedStartDate)
         //want to search in range [formattedDate, formattedDate+24 hours)
         // /odds/&regions=us&markets=h2h,spreads&oddsFormat=american&date=${formattedStartDate}`;
         //example: https://api.the-odds-api.com/v4/sports/americanfootball_nfl/scores/?apiKey=c12e854a72219eb10a45e79013747e40
         // const apiKey = process.env.REACT_APP_ODDS_API_API_KEY;
+        const oddsAPI = 'https://api.the-odds-api.com/v4/sports/americanfootball_nfl/scores';
         const apiKey = "c12e854a72219eb10a45e79013747e40";
-        const fullAPI = `${oddsAPI}?apiKey=${apiKey}`;
+        const fullAPI = `${oddsAPI}?apiKey=${apiKey}&date=${isoCurrentDateTime}`;
         //Check cache first
         const cachedResponse = sessionStorage.getItem(fullAPI);
         if (cachedResponse) {
@@ -120,8 +131,9 @@ class LiveCharts extends React.Component {
                 return Promise.reject(error);
                 };
                 //Store in the cache
-                sessionStorage.setItem(fullAPI, JSON.stringify(data));
-                return data;
+                let parsedTimeData = parseOddsApiUpcomingGames_returnCurrentGames(isoCurrentDateTime, data);
+                sessionStorage.setItem(fullAPI, JSON.stringify(parsedTimeData));
+                return parsedTimeData;
             }).catch((error) => {
                 //this.setState({ errorMessage: error.toString() });
                 console.error('There was an error!', error);
@@ -132,35 +144,10 @@ class LiveCharts extends React.Component {
 
     async handleFetchAndFilter_theoddsapi()
     {
-        // let liveAndUpcomingContests = await this.fetchLiveAndUpcomingNflGames_theoddsapi();
-        //TODO: only want the first set of contests, not all future contests
-        // let filteredGameArrayData = filterOddsApiData(liveAndUpcomingContests);
-        let filteredGameArrayData = [
-                {"id":"0e7b3192b263a571917d8996f42c5024",
-                "sport_key":"americanfootball_nfl",
-                "sport_title":"NFL",
-                "commence_time":"2023-09-08T00:20:00Z",
-                "completed":false,
-                "home_team":"Kansas City Chiefs",
-                "away_team":"Detroit Lions",
-                "scores":null,
-                "last_update":null},
-                {"id":"234",
-                "sport_key":"americanfootball_nfl",
-                "sport_title":"NFL",
-                "commence_time":"2023-09-09T00:20:00Z",
-                "completed":false,
-                "home_team":"Team2",
-                "away_team":"Team3",
-                "scores":null,
-                "last_update":null},
-                
-        ]
+        let liveAndUpcomingContests_arrayData = await this.fetchLiveAndUpcomingNflGames_theoddsapi();
         this.setState({
-            _game_array: filteredGameArrayData,
+            _game_array: liveAndUpcomingContests_arrayData,
         });
-        console.log("fired handlefetchandfilter ods api -- line 129 LiveCharts.js")
-        console.log(filteredGameArrayData)
     }
 
     render() {
@@ -184,7 +171,7 @@ class LiveCharts extends React.Component {
         let renderedChart = <></>
         
         
-        if(this.state._selected_sport != 'None')
+        if(this.state._selected_sport !== 'None')
         {
             renderedContent = <>
                 <div className="col-md-3 col-sm-3">
@@ -216,13 +203,14 @@ class LiveCharts extends React.Component {
                 </div>
             </>
         }
-        if(this.state._selected_sport != 'None' && this.state._selected_date)
+        if(this.state._selected_sport !== 'None' && this.state._selected_date)
         {
             renderedContests = <>
                 <ContestTemplate
                 handleFetchAndFilter_theoddsapi={this.handleFetchAndFilter_theoddsapi}
                 game_array={this.state._game_array}
                 handleSelectContest={this.handleSelectContest}
+                selectedDate={this.state._selected_date}
                 >
                 </ContestTemplate>
             </>
