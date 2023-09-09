@@ -46,14 +46,16 @@ class ContestTemplate extends Component {
     }
       
     return (
-        <div>
+        <div className="row">
             Sport Template
             <p>
               {this.props.selectedDate.toISOString()}
             </p>
-            <div>
-                {arrayContestBlocks}
-            </div>
+            {arrayContestBlocks.map((block, index) => (
+              <div className="col-md-6" key={index % 3}>
+                {block}
+              </div>
+            ))}
         </div>
     );
   }

@@ -41,7 +41,7 @@ class ZoomLineChart extends React.Component {
                 size: 0,
               },
               title: {
-                text: 'Historical Odds Data',
+                text: 'Live Odds Data',
                 align: 'left'
               },
               fill: {
