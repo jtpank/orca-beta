@@ -1,4 +1,4 @@
-function isLessThan2DaysFromNow(isoDateString, dateString) {
+function isLessThan1DaysFromNow(isoDateString, dateString) {
     const date = new Date(isoDateString);
     const currentDate = new Date(dateString);
   
@@ -9,7 +9,7 @@ function isLessThan2DaysFromNow(isoDateString, dateString) {
     const daysDifference = timeDifference / (1000 * 3600 * 24);
   
     // Check if the difference is less than 2 days
-    return daysDifference < 2;
+    return daysDifference < 1;
   }
 function isSameDay(isoDateString1, isoDateString2) {
     const date1 = new Date(isoDateString1);
@@ -54,15 +54,10 @@ export default function parseOddsApiUpcomingGames_returnCurrentGames(isoCurrentD
             //compare dateTimes
             const currentDate = new Date(isoCurrentDateTime);
             const gameDate = new Date(game.commence_time);
-            if(isLessThan2DaysFromNow(currentDate, gameDate) && isSameDay(currentDate, gameDate))
+            if(isSameDay(currentDate, gameDate))
             {
                 returnArrayOfParsedGames.push(tempObj);
             }
-            else
-            {
-                break;
-            }
-            
         }
     }
     return returnArrayOfParsedGames;
