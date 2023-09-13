@@ -6,6 +6,7 @@ import DateSelect from '../components/DateSelect';
 import filterOddsApiData from '../logic/filterOddsApiData';
 import ContestTemplate from '../components/ContestTemplate';
 import parseOddsApiUpcomingGames_returnCurrentGames from '../logic/parseOddsApiUpcomingGames_returnCurrentGames';
+import DropDownSelect from '../components/DropDownSelect';
 class LiveCharts extends React.Component {
     constructor(props){
         super(props);
@@ -169,6 +170,8 @@ class LiveCharts extends React.Component {
         let renderedContests = <></>
         
         let renderedChart = <></>
+
+        let renderedSelectBook = <></>
         
         
         if(this.state._selected_sport !== 'None')
@@ -187,17 +190,6 @@ class LiveCharts extends React.Component {
                 ></DateSelect>
                 </div>
                 <div className="row mb-4">
-                {/* <select 
-                class="form-select" 
-                aria-label="book-select" 
-                value={this.state._selected_book}
-                onChange={this.handleSetBook}
-                >
-                    <option value="">Select a book</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select> */}
                 </div>
                 <div className="row mb-4">
                 </div>
@@ -214,9 +206,17 @@ class LiveCharts extends React.Component {
                 >
                 </ContestTemplate>
             </>
+
         }
-        if(this.state._selected_sport != 'None' && this.state._selected_date && Object.values(this.state._selected_contest).every(value => value !== null))
+        if(this.state._selected_sport != 'None' && this.state._selected_date && this.state._selected_book && Object.values(this.state._selected_contest).every(value => value !== null))
         {
+            renderedSelectBook = <>
+                <DropDownSelect
+                handleSetBook = {this.handleSetBook}
+                selectedBook = {this.state._selected_book}
+                ></DropDownSelect>
+            </>
+
             renderedChart = <>
                 <ZoomLineChart></ZoomLineChart>
             </>
@@ -239,6 +239,12 @@ class LiveCharts extends React.Component {
                                     <h2>Contest Row</h2>
                                     <p>Contest content</p>
                                     {renderedContests}
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-md-12">
+                                    <h2>Select Book</h2>
+                                    {renderedSelectBook}
                                 </div>
                             </div>
                             <div className="row">
