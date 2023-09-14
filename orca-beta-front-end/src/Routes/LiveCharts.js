@@ -201,15 +201,15 @@ class LiveCharts extends React.Component {
     {
         const fullAPI = `http://localhost:5000/api/get/pre-game-${sport_name}-odds-h2h-data?odds_api_game_id=${contestId}&sport=${sport}&bookmakerKey=${bookmaker}&startDate=${startDateIsoString}&endDate=${endDateIsoString}`;
         //Check cache first
-        const cachedResponse = sessionStorage.getItem(fullAPI);
-        if (cachedResponse) {
-          const data = JSON.parse(cachedResponse);
-          console.log("data in line 207 of LiveCharts.js showing the SESSION CACHED data")
-          console.log(data.data)
-          return data.data;
-        }
-        else
-        {
+        // const cachedResponse = sessionStorage.getItem(fullAPI);
+        // if (cachedResponse) {
+        //   const data = JSON.parse(cachedResponse);
+        //   console.log("data in line 207 of LiveCharts.js showing the SESSION CACHED data")
+        //   console.log(data.data)
+        //   return data.data;
+        // }
+        // else
+        // {
             const externResponse = await fetch(fullAPI)
             .then(async (response) => {
                 const data = await response.json();
@@ -227,14 +227,14 @@ class LiveCharts extends React.Component {
                 //[{"odds_api_game_id": "217559949d3b88a1267c2c4c480eab51", "sport_key": "americanfootball_nfl", "odds_api_bookmaker_key": "bovada", "commence_time": "2023-09-15T00:16:00Z", "last_update": "2023-09-14T02:19:42Z", "home_team": "Minnesota Vikings", "away_team": "Philadelphia Eagles", "home_team_price": 220, "away_team_price": 220}, {"odds_api_game_id": "217559949d3b88a1267c2c4c480eab51", "sport_key": "americanfootball_nfl", "odds_api_bookmaker_key": "bovada", "commence_time": "2023-09-15T00:16:00Z", "last_update": "2023-09-14T02:21:51Z", "home_team": "Minnesota Vikings", "away_team": "Philadelphia Eagles", "home_team_price": 220, "away_team_price": 220}]}
                 console.log("data in line 226 of LiveCharts.js showing the response data")
                 console.log(JSON.stringify(data))
-                sessionStorage.setItem(fullAPI, JSON.stringify(data));
+                // sessionStorage.setItem(fullAPI, JSON.stringify(data));
                 return data.data;
             }).catch((error) => {
                 //this.setState({ errorMessage: error.toString() });
                 console.error('There was an error!', error);
             });
             return externResponse;
-        }
+        // }
     }
 
 
