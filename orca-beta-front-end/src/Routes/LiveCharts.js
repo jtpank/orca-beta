@@ -19,6 +19,7 @@ class LiveCharts extends React.Component {
 
         }
         this.fetchLiveAndUpcomingNflGames_theoddsapi  = this.fetchLiveAndUpcomingNflGames_theoddsapi.bind(this);
+        this.fetchLiveAndUpcomingGames_customApi = this.fetchLiveAndUpcomingGames_customApi.bind(this);
         this.handleFetchAndFilter_theoddsapi = this.handleFetchAndFilter_theoddsapi.bind(this);
 
         this.handleSelectContest = this.handleSelectContest.bind(this);
@@ -94,6 +95,41 @@ class LiveCharts extends React.Component {
             }
         })
     }
+    //Fetch from custom server
+    async fetchLiveAndUpcomingGames_customApi(sport_name, sport, dateIsoString)
+    {
+        //endpoint should be 'scores'
+        let additionalParams = {};
+        const fullAPI = `http://localhost:5000/api/get/live-${sport_name}-scores-data?sport=${sport}&date=${dateIsoString}`;
+        //Check cache first
+        const cachedResponse = sessionStorage.getItem(fullAPI);
+        if (cachedResponse) {
+          const data = JSON.parse(cachedResponse);
+          return data;
+        }
+        else
+        {
+            const externResponse = await fetch(fullAPI)
+            .then(async (response) => {
+                const data = await response.json();
+                // check for error response
+                if (!response.ok) {
+                // get error message from body or default to response statusText
+                const error = (data && data.message) || response.statusText;
+                return Promise.reject(error);
+                };
+                //Store in the cache
+                sessionStorage.setItem(fullAPI, JSON.stringify(data.data));
+                return data.data;
+            }).catch((error) => {
+                //this.setState({ errorMessage: error.toString() });
+                console.error('There was an error!', error);
+            });
+            return externResponse;
+        }
+    }
+
+
 
     //Fetch from the-odds-api for list of upcoming games
     async fetchLiveAndUpcomingNflGames_theoddsapi()
@@ -145,7 +181,12 @@ class LiveCharts extends React.Component {
 
     async handleFetchAndFilter_theoddsapi()
     {
-        let liveAndUpcomingContests_arrayData = await this.fetchLiveAndUpcomingNflGames_theoddsapi();
+        let isoCurrentDateTime = null;
+        if(this.state._selected_date)
+        {
+            isoCurrentDateTime = this.state._selected_date.toISOString().substring(0, 19) + 'Z';
+        }
+        let liveAndUpcomingContests_arrayData = await this.fetchLiveAndUpcomingGames_customApi("nfl", "americanfootball_nfl", isoCurrentDateTime);
         this.setState({
             _game_array: liveAndUpcomingContests_arrayData,
         });
