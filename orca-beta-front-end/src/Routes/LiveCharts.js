@@ -260,7 +260,7 @@ class LiveCharts extends React.Component {
         let bookmaker = null;
         console.log("firing handleFetchAndFilterH2hOddsData_customApi line 261 of LiveCharts.js");
         console.log("selected date: ");
-        console.log(this.state._selected_date);
+        console.log(this.state._selected_date.toISOString());
         console.log("selected book: ");
         console.log(this.state._selected_book);
         console.log("selected contest id: ");
