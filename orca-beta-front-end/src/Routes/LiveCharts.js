@@ -223,6 +223,9 @@ class LiveCharts extends React.Component {
                 //Store in the cache
                 //TODO create a logic function to filter by the actual id key of the matchup
                 // let parsedBookMakerData = parseCustomApiBookmakerDataGivenSpecifiedContest(startDateIsoString, endDateIsoString, contestId, data.data);
+                //api looks like: /api/get/pre-game-nfl-odds-h2h-data?odds_api_game_id=217559949d3b88a1267c2c4c480eab51&sport=americanfootball_nfl&bookmakerKey=bovada&startDate=2023-09-14T00:00:00Z&endDate=2023-09-15T00:00:00Z HTTP/1.1
+                // data.data looks like: 
+                //[{"odds_api_game_id": "217559949d3b88a1267c2c4c480eab51", "sport_key": "americanfootball_nfl", "odds_api_bookmaker_key": "bovada", "commence_time": "2023-09-15T00:16:00Z", "last_update": "2023-09-14T02:19:42Z", "home_team": "Minnesota Vikings", "away_team": "Philadelphia Eagles", "home_team_price": 220, "away_team_price": 220}, {"odds_api_game_id": "217559949d3b88a1267c2c4c480eab51", "sport_key": "americanfootball_nfl", "odds_api_bookmaker_key": "bovada", "commence_time": "2023-09-15T00:16:00Z", "last_update": "2023-09-14T02:21:51Z", "home_team": "Minnesota Vikings", "away_team": "Philadelphia Eagles", "home_team_price": 220, "away_team_price": 220}]}
                 sessionStorage.setItem(fullAPI, JSON.stringify(data.data));
                 return data.data;
             }).catch((error) => {
@@ -344,7 +347,9 @@ class LiveCharts extends React.Component {
             renderedChart = <>
                 <ZoomLineChart
                 handleFetchAndFilterH2hOddsData_customApi={this.handleFetchAndFilterH2hOddsData_customApi}
-                bookMakerArray={this.state._book_array}
+                homeTeamPriceArray={this.state._book_array.map(obj => obj.home_team_price)}
+                awayTeamPriceArray={this.state._book_array.map(obj => obj.away_team_price)}
+                lastUpdate={this.state._book_array.map(obj => obj.last_update)}
                 ></ZoomLineChart>
             </>
         }
