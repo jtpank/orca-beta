@@ -269,8 +269,8 @@ class LiveCharts extends React.Component {
         {
             isoCurrentDateTime = this.state._selected_date.toISOString().substring(0, 19) + 'Z';
             let currentDate = this.state._selected_date;
-            let currentDatePlusOne = currentDate.setDate(currentDate.getDate + 1)
-            endDateIsoString = currentDatePlusOne.toISOString().substring(0, 19) + 'Z';;
+            let currentDatePlusOne = currentDate.setDate(currentDate.getDate() + 1)
+            endDateIsoString = currentDatePlusOne.toISOString().substring(0, 19) + 'Z';
             contestId = this.state._selected_contest.id;
             bookmaker = this.state._selected_book;
         }
