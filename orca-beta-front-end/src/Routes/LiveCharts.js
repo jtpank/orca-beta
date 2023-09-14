@@ -119,8 +119,9 @@ class LiveCharts extends React.Component {
                 return Promise.reject(error);
                 };
                 //Store in the cache
-                sessionStorage.setItem(fullAPI, JSON.stringify(data.data));
-                return data.data;
+                let parsedTimeData = parseOddsApiUpcomingGames_returnCurrentGames(isoCurrentDateTime, data.data);
+                sessionStorage.setItem(fullAPI, JSON.stringify(parsedTimeData));
+                return parsedTimeData;
             }).catch((error) => {
                 //this.setState({ errorMessage: error.toString() });
                 console.error('There was an error!', error);
