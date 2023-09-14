@@ -261,15 +261,16 @@ class LiveCharts extends React.Component {
         let bookmaker = null;
         if(this.state._selected_date && this.state._selected_contest.id && this.state._selected_book != 'None')
         {
+            console.log("hit inside line 264 liveCharts.js");
             isoCurrentDateTime = this.state._selected_date.toISOString().substring(0, 19) + 'Z';
-            let currentDate = this.state._selected_date;
+            let currentDate = new Date(isoCurrentDateTime);
             currentDate.setDate(currentDate.getDate() + 1)
             endDateIsoString = currentDate.toISOString().substring(0, 19) + 'Z';
             contestId = this.state._selected_contest.id;
             bookmaker = this.state._selected_book;
         }
         //TODO: update these arguments for all sports NOT hardcoded for NFL
-        let bookMakerDataArray = await this.fetchH2hOddsData_customApi("nfl", "americanfootball_nfl", contestId, bookmaker, isoCurrentDateTime, endDateIsoString);
+        // let bookMakerDataArray = await this.fetchH2hOddsData_customApi("nfl", "americanfootball_nfl", contestId, bookmaker, isoCurrentDateTime, endDateIsoString);
         console.log("fired in LiveCharts.js line 272")
         console.log(bookMakerDataArray);
         this.setState({
@@ -351,12 +352,12 @@ class LiveCharts extends React.Component {
            
             renderedChart = <>
             <p>Chart rendered!</p>
-                {/* <ZoomLineChart
+                <ZoomLineChart
                 handleFetchAndFilterH2hOddsData_customApi={this.handleFetchAndFilterH2hOddsData_customApi}
                 // homeTeamPriceArray={this.state._book_array.map(obj => obj.home_team_price)}
                 // awayTeamPriceArray={this.state._book_array.map(obj => obj.away_team_price)}
                 // lastUpdate={this.state._book_array.map(obj => obj.last_update)}
-                ></ZoomLineChart> */}
+                ></ZoomLineChart>
             </>
         }
 
