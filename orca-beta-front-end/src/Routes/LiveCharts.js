@@ -119,7 +119,7 @@ class LiveCharts extends React.Component {
                 return Promise.reject(error);
                 };
                 //Store in the cache
-                let parsedTimeData = parseOddsApiUpcomingGames_returnCurrentGames(isoCurrentDateTime, data.data);
+                let parsedTimeData = parseOddsApiUpcomingGames_returnCurrentGames(dateIsoString, data.data);
                 sessionStorage.setItem(fullAPI, JSON.stringify(parsedTimeData));
                 return parsedTimeData;
             }).catch((error) => {
