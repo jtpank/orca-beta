@@ -178,7 +178,7 @@ class ZoomLineChart extends React.Component {
     render() {
       return (
         <div id="chart">
-            <Chart options={this.props.options} series={this.prop.series} type="area" />
+            <Chart options={this.props.options} series={this.props.series} type="area" />
         </div>
       );
     }
