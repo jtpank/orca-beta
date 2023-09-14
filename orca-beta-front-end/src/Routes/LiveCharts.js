@@ -204,7 +204,9 @@ class LiveCharts extends React.Component {
         const cachedResponse = sessionStorage.getItem(fullAPI);
         if (cachedResponse) {
           const data = JSON.parse(cachedResponse);
-          return data;
+          console.log("data in line 207 of LiveCharts.js showing the SESSION CACHED data")
+          console.log(data.data)
+          return data.data;
         }
         else
         {
@@ -223,7 +225,9 @@ class LiveCharts extends React.Component {
                 //api looks like: /api/get/pre-game-nfl-odds-h2h-data?odds_api_game_id=217559949d3b88a1267c2c4c480eab51&sport=americanfootball_nfl&bookmakerKey=bovada&startDate=2023-09-14T00:00:00Z&endDate=2023-09-15T00:00:00Z HTTP/1.1
                 // data.data looks like: 
                 //[{"odds_api_game_id": "217559949d3b88a1267c2c4c480eab51", "sport_key": "americanfootball_nfl", "odds_api_bookmaker_key": "bovada", "commence_time": "2023-09-15T00:16:00Z", "last_update": "2023-09-14T02:19:42Z", "home_team": "Minnesota Vikings", "away_team": "Philadelphia Eagles", "home_team_price": 220, "away_team_price": 220}, {"odds_api_game_id": "217559949d3b88a1267c2c4c480eab51", "sport_key": "americanfootball_nfl", "odds_api_bookmaker_key": "bovada", "commence_time": "2023-09-15T00:16:00Z", "last_update": "2023-09-14T02:21:51Z", "home_team": "Minnesota Vikings", "away_team": "Philadelphia Eagles", "home_team_price": 220, "away_team_price": 220}]}
-                sessionStorage.setItem(fullAPI, JSON.stringify(data.data));
+                console.log("data in line 226 of LiveCharts.js showing the response data")
+                console.log(JSON.stringify(data))
+                sessionStorage.setItem(fullAPI, JSON.stringify(data));
                 return data.data;
             }).catch((error) => {
                 //this.setState({ errorMessage: error.toString() });
