@@ -258,7 +258,8 @@ class LiveCharts extends React.Component {
         let endDateIsoString = "";
         let contestId = null;
         let bookmaker = null;
-        if(this.state._selected_date && this.state._selected_contest.id && this.state._selected_book)
+        console.log("firing handleFetchAndFilterH2hOddsData_customApi line 261 of LiveCharts.js");
+        if(this.state._selected_date && this.state._selected_contest.id && this.state._selected_book != 'None')
         {
             isoCurrentDateTime = this.state._selected_date.toISOString().substring(0, 19) + 'Z';
             let currentDate = this.state._selected_date;
