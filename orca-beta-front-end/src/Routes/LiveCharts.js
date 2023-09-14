@@ -358,6 +358,7 @@ class LiveCharts extends React.Component {
             <p>Chart rendered!</p>
                 <ZoomLineChart
                 handleFetchAndFilterH2hOddsData_customApi={this.handleFetchAndFilterH2hOddsData_customApi}
+                selectedBook = {this.state._selected_book}
                 // homeTeamPriceArray={this.state._book_array.map(obj => obj.home_team_price)}
                 // awayTeamPriceArray={this.state._book_array.map(obj => obj.away_team_price)}
                 // lastUpdate={this.state._book_array.map(obj => obj.last_update)}
