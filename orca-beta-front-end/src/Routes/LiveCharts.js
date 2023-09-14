@@ -22,7 +22,7 @@ class LiveCharts extends React.Component {
         this.fetchLiveAndUpcomingNflGames_theoddsapi  = this.fetchLiveAndUpcomingNflGames_theoddsapi.bind(this);
         this.fetchLiveAndUpcomingGames_customApi = this.fetchLiveAndUpcomingGames_customApi.bind(this);
         this.fetchH2hOddsData_customApi = this.fetchH2hOddsData_customApi.bind(this);
-
+        this.handleFetchAndFilterH2hOddsData_customApi = this.handleFetchAndFilterH2hOddsData_customApi.bind(this);
         //TODO remove because deprecated
         this.handleFetchAndFilterLiveAndUpcomingGames_customApi = this.handleFetchAndFilterLiveAndUpcomingGames_customApi.bind(this);
 
@@ -259,12 +259,12 @@ class LiveCharts extends React.Component {
         let contestId = null;
         let bookmaker = null;
         console.log("firing handleFetchAndFilterH2hOddsData_customApi line 261 of LiveCharts.js");
-        console.log("selected date: ");
-        console.log(this.state._selected_date.toISOString());
         console.log("selected book: ");
         console.log(this.state._selected_book);
         console.log("selected contest id: ");
         console.log(this.state._selected_contest.id);
+        console.log("selected date: ");
+        console.log(this.state._selected_date.toISOString());
         if(this.state._selected_date && this.state._selected_contest.id && this.state._selected_book != 'None')
         {
             isoCurrentDateTime = this.state._selected_date.toISOString().substring(0, 19) + 'Z';
