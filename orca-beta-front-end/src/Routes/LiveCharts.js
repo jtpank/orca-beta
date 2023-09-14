@@ -259,15 +259,17 @@ class LiveCharts extends React.Component {
         let endDateIsoString = "";
         let contestId = null;
         let bookmaker = null;
-        let startDate = new Date();
-        let startDateIsoString = startDate.toISOString().substring(0, 19) + 'Z';
+        let startDateIsoString = "";
         if(this.state._selected_date && this.state._selected_contest.id && this.state._selected_book != 'None')
         {
             console.log("hit inside line 264 liveCharts.js");
             isoCurrentDateTime = this.state._selected_date.toISOString().substring(0, 19) + 'Z';
             let currentDate = new Date(isoCurrentDateTime);
+            let startDate = new Date(isoCurrentDateTime);
             currentDate.setDate(currentDate.getDate() + 1)
             endDateIsoString = currentDate.toISOString().substring(0, 19) + 'Z';
+            startDate.setDate(startDate.getDate() - 2);
+            startDateIsoString = startDate.toISOString().substring(0, 19) + 'Z';
             contestId = this.state._selected_contest.id;
             bookmaker = this.state._selected_book;
         }
