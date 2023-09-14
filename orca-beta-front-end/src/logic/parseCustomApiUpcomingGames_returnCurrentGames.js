@@ -43,7 +43,7 @@ export default function parseCustomApiUpcomingGames_returnCurrentGames(isoCurren
         {
             let game = arrayOfGames[i];
             let tempObj = {
-                "id": game["id"],
+                "id": game["odds_api_game_id"],
                 "commence_time": game["commence_time"],
                 "home_team": game["home_team"],
                 "away_team": game["away_team"],
