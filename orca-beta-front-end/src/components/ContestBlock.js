@@ -8,7 +8,7 @@ class ContestBlock extends Component {
       handleClick()
       {
         this.props.handleSelectContest(this.props.game);
-        this.props.handleSelectContestBlock(this.props.game.odds_api_game_id);
+        this.props.handleSelectContestBlock(this.props.game.id);
       }
   render() {
     const { game, isSelected } = this.props;
@@ -16,7 +16,7 @@ class ContestBlock extends Component {
     return (
           <div className={`contest-block${highlightClass}`} onClick={this.handleClick}>
             <p>Commence time: {game.commence_time}</p>
-            <p>ID: {game.odds_api_game_id}</p>
+            <p>ID: {game.id}</p>
             <p>Home Team: {game.home_team} | {game.home_team_score}</p>
             <p>Away Team: {game.away_team} | {game.away_team_score}</p>
           </div>
