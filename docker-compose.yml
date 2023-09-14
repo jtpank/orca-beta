@@ -4,9 +4,9 @@ services:
     command: sh -c "npm install && npm start"
     ports:
       - 3000:3000
-    working_dir: /front-end
+    working_dir: /orca-beta-front-end
     volumes:
-      - ./front-end/:/front-end
+      - ./orca-beta-front-end/:/orca-beta-front-end
   webserver:
     image: nginx:latest
     ports:
