@@ -10,7 +10,7 @@ class ContestTemplate extends Component {
     
       }
       componentDidMount() {
-        this.props.handleFetchAndFilter_customApi();
+        this.props.handleFetchAndFilterLiveAndUpcomingGames_customApi();
       }
       componentDidUpdate(prevProps) {
           if (this.props.selectedDate !== prevProps.selectedDate) {
@@ -18,7 +18,7 @@ class ContestTemplate extends Component {
               selectedGameId: null,
             })
             // This function will be called whenever parentState changes
-            this.props.handleFetchAndFilter_customApi();
+            this.props.handleFetchAndFilterLiveAndUpcomingGames_customApi();
           }
         }
 

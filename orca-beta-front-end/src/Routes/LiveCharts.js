@@ -20,7 +20,7 @@ class LiveCharts extends React.Component {
         }
         this.fetchLiveAndUpcomingNflGames_theoddsapi  = this.fetchLiveAndUpcomingNflGames_theoddsapi.bind(this);
         this.fetchLiveAndUpcomingGames_customApi = this.fetchLiveAndUpcomingGames_customApi.bind(this);
-        this.handleFetchAndFilter_customApi = this.handleFetchAndFilter_customApi.bind(this);
+        this.handleFetchAndFilterLiveAndUpcomingGames_customApi = this.handleFetchAndFilterLiveAndUpcomingGames_customApi.bind(this);
 
         this.handleSelectContest = this.handleSelectContest.bind(this);
         this.handleResetSelectContest = this.handleResetSelectContest.bind(this);
@@ -180,13 +180,14 @@ class LiveCharts extends React.Component {
         }
     }
 
-    async handleFetchAndFilter_customApi()
+    async handleFetchAndFilterLiveAndUpcomingGames_customApi()
     {
         let isoCurrentDateTime = null;
         if(this.state._selected_date)
         {
             isoCurrentDateTime = this.state._selected_date.toISOString().substring(0, 19) + 'Z';
         }
+        //TODO: update these arguments for all sports NOT hardcoded for NFL
         let liveAndUpcomingContests_arrayData = await this.fetchLiveAndUpcomingGames_customApi("nfl", "americanfootball_nfl", isoCurrentDateTime);
         this.setState({
             _game_array: liveAndUpcomingContests_arrayData,
@@ -241,7 +242,7 @@ class LiveCharts extends React.Component {
         {
             renderedContests = <>
                 <ContestTemplate
-                handleFetchAndFilter_customApi={this.handleFetchAndFilter_customApi}
+                handleFetchAndFilterLiveAndUpcomingGames_customApi={this.handleFetchAndFilterLiveAndUpcomingGames_customApi}
                 game_array={this.state._game_array}
                 handleSelectContest={this.handleSelectContest}
                 selectedDate={this.state._selected_date}
