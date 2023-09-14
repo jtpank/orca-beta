@@ -20,7 +20,7 @@ class LiveCharts extends React.Component {
         }
         this.fetchLiveAndUpcomingNflGames_theoddsapi  = this.fetchLiveAndUpcomingNflGames_theoddsapi.bind(this);
         this.fetchLiveAndUpcomingGames_customApi = this.fetchLiveAndUpcomingGames_customApi.bind(this);
-        this.handleFetchAndFilter_theoddsapi = this.handleFetchAndFilter_theoddsapi.bind(this);
+        this.handleFetchAndFilter_customApi = this.handleFetchAndFilter_customApi.bind(this);
 
         this.handleSelectContest = this.handleSelectContest.bind(this);
         this.handleResetSelectContest = this.handleResetSelectContest.bind(this);
