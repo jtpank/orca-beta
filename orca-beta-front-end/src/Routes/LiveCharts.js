@@ -269,6 +269,8 @@ class LiveCharts extends React.Component {
         }
         //TODO: update these arguments for all sports NOT hardcoded for NFL
         let bookMakerDataArray = await this.fetchH2hOddsData_customApi("nfl", "americanfootball_nfl", contestId, bookmaker, isoCurrentDateTime, endDateIsoString);
+        console.log("fired in LiveCharts.js line 272")
+        console.log(bookMakerDataArray);
         this.setState({
             _book_array: bookMakerDataArray,
         });
