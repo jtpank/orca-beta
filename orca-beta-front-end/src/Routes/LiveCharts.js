@@ -259,6 +259,8 @@ class LiveCharts extends React.Component {
         let endDateIsoString = "";
         let contestId = null;
         let bookmaker = null;
+        let startDate = new Date();
+        let startDateIsoString = startDate.toISOString().substring(0, 19) + 'Z';
         if(this.state._selected_date && this.state._selected_contest.id && this.state._selected_book != 'None')
         {
             console.log("hit inside line 264 liveCharts.js");
@@ -270,7 +272,7 @@ class LiveCharts extends React.Component {
             bookmaker = this.state._selected_book;
         }
         //TODO: update these arguments for all sports NOT hardcoded for NFL
-        let bookMakerDataArray = await this.fetchH2hOddsData_customApi("nfl", "americanfootball_nfl", contestId, bookmaker, isoCurrentDateTime, endDateIsoString);
+        let bookMakerDataArray = await this.fetchH2hOddsData_customApi("nfl", "americanfootball_nfl", contestId, bookmaker, startDateIsoString, endDateIsoString);
         console.log("fired in LiveCharts.js line 272 here is the bookMakerDataArray:")
         console.log(bookMakerDataArray);
         this.setState({
