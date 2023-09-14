@@ -74,7 +74,6 @@ class LiveCharts extends React.Component {
         })
     }
     handleSetDate(date) {
-        console.log("handleSetDate line 62 in LiveChart.js fired")
         this.handleResetSelectContest();
         this.setState((prevState) => ({
             _selected_date: date,
@@ -90,8 +89,6 @@ class LiveCharts extends React.Component {
     }
 
     handleSelectContest(game) {
-        console.log("handleselectcontest fire line 93 LiveCharts.js: ")
-        console.log(game)
         this.setState({
             _selected_contest: {
                 "id": game.id,
@@ -258,13 +255,6 @@ class LiveCharts extends React.Component {
         let endDateIsoString = "";
         let contestId = null;
         let bookmaker = null;
-        console.log("firing handleFetchAndFilterH2hOddsData_customApi line 261 of LiveCharts.js");
-        console.log("selected book: ");
-        console.log(this.state._selected_book);
-        console.log("selected contest id: ");
-        console.log(this.state._selected_contest.id);
-        console.log("selected date: ");
-        console.log(this.state._selected_date.toISOString());
         if(this.state._selected_date && this.state._selected_contest.id && this.state._selected_book != 'None')
         {
             isoCurrentDateTime = this.state._selected_date.toISOString().substring(0, 19) + 'Z';
