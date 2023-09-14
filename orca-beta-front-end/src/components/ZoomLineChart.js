@@ -13,6 +13,12 @@ class ZoomLineChart extends React.Component {
               data: [
                 0
               ]
+            },
+            {
+              name: "away-team-prices",
+              data: [
+                0
+              ]
             }
           ],
         options: {
@@ -30,6 +36,7 @@ class ZoomLineChart extends React.Component {
                   autoSelected: 'zoom'
                 }
               },
+              colors: ['#77B6EA', '#545454'],
               dataLabels: {
                 enabled: false
               },
@@ -60,7 +67,7 @@ class ZoomLineChart extends React.Component {
               },
               yaxis: {
                 title: {
-                  text: "Y Axis Label",
+                  text: "H2H Line",
                   style: {
                     fontSize: "14px",
                     fontWeight: 600,
@@ -75,7 +82,7 @@ class ZoomLineChart extends React.Component {
                   "2023-08-01T00:00:00Z",
                 ],
                 title: {
-                  text: "X Axis Label",
+                  text: "Date Time Updated",
                   style: {
                     fontSize: "14px",
                     fontWeight: 600,
