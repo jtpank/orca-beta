@@ -5,7 +5,7 @@ import ZoomLineChart from '../components/ZoomLineChart';
 import DateSelect from '../components/DateSelect';
 import filterOddsApiData from '../logic/filterOddsApiData';
 import ContestTemplate from '../components/ContestTemplate';
-import parseOddsApiUpcomingGames_returnCurrentGames from '../logic/parseOddsApiUpcomingGames_returnCurrentGames';
+import parseCustomApiUpcomingGames_returnCurrentGames from '../logic/parseCustomApiUpcomingGames_returnCurrentGames';
 import DropDownSelect from '../components/DropDownSelect';
 class LiveCharts extends React.Component {
     constructor(props){
@@ -20,6 +20,8 @@ class LiveCharts extends React.Component {
         }
         this.fetchLiveAndUpcomingNflGames_theoddsapi  = this.fetchLiveAndUpcomingNflGames_theoddsapi.bind(this);
         this.fetchLiveAndUpcomingGames_customApi = this.fetchLiveAndUpcomingGames_customApi.bind(this);
+
+        //TODO remove because deprecated
         this.handleFetchAndFilterLiveAndUpcomingGames_customApi = this.handleFetchAndFilterLiveAndUpcomingGames_customApi.bind(this);
 
         this.handleSelectContest = this.handleSelectContest.bind(this);
@@ -119,7 +121,7 @@ class LiveCharts extends React.Component {
                 return Promise.reject(error);
                 };
                 //Store in the cache
-                let parsedTimeData = parseOddsApiUpcomingGames_returnCurrentGames(dateIsoString, data.data);
+                let parsedTimeData = parseCustomApiUpcomingGames_returnCurrentGames(dateIsoString, data.data);
                 sessionStorage.setItem(fullAPI, JSON.stringify(parsedTimeData));
                 return parsedTimeData;
             }).catch((error) => {
@@ -169,7 +171,7 @@ class LiveCharts extends React.Component {
                 return Promise.reject(error);
                 };
                 //Store in the cache
-                let parsedTimeData = parseOddsApiUpcomingGames_returnCurrentGames(isoCurrentDateTime, data);
+                let parsedTimeData = parseCustomApiUpcomingGames_returnCurrentGames(isoCurrentDateTime, data);
                 sessionStorage.setItem(fullAPI, JSON.stringify(parsedTimeData));
                 return parsedTimeData;
             }).catch((error) => {

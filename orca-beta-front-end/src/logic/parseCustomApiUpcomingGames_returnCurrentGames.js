@@ -22,7 +22,7 @@ function isSameDay(isoDateString1, isoDateString2) {
   
     return isSameYear && isSameMonth && isSameDayOfMonth;
   }
-export default function parseOddsApiUpcomingGames_returnCurrentGames(isoCurrentDateTime, arrayOfGames) {
+export default function parseCustomApiUpcomingGames_returnCurrentGames(isoCurrentDateTime, arrayOfGames) {
     //data is an array [obj1,obj2,...] where each obj is as follows:
     //{"id":"0e7b3192b263a571917d8996f42c5024",
     // "sport_key":"americanfootball_nfl",
