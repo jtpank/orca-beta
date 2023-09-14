@@ -344,7 +344,7 @@ class LiveCharts extends React.Component {
         }
         if(this.state._selected_sport != 'None' && this.state._selected_date && this.state._selected_book && Object.values(this.state._selected_contest).every(value => value !== null))
         {
-            console.log(_book_array)
+            console.log("_book_array")
             console.log(this.state._book_array);
             renderedChart = <>
                 <ZoomLineChart
