@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import ZoomLineChart from '../components/ZoomLineChart';
 import DateSelect from '../components/DateSelect';
 import ContestTemplate from '../components/ContestTemplate';
+import parseCustomApiBookmakerDataGivenSpecifiedContest from '../logic/parseCustomApiBookmakerDataGivenSpecifiedContest';
 import parseCustomApiUpcomingGames_returnCurrentGames from '../logic/parseCustomApiUpcomingGames_returnCurrentGames';
 import DropDownSelect from '../components/DropDownSelect';
 class LiveCharts extends React.Component {
@@ -14,12 +15,13 @@ class LiveCharts extends React.Component {
             _selected_book: null,
             _selected_date: null,
             _selected_contest: {"id": null},
+            _book_array: [],
             _game_array: [],
 
         }
         this.fetchLiveAndUpcomingNflGames_theoddsapi  = this.fetchLiveAndUpcomingNflGames_theoddsapi.bind(this);
         this.fetchLiveAndUpcomingGames_customApi = this.fetchLiveAndUpcomingGames_customApi.bind(this);
-        this.fetchLiveAndUpcomingH2hOddsData_customApi = this.fetchLiveAndUpcomingH2hOddsData_customApi.bind(this);
+        this.fetchH2hOddsData_customApi = this.fetchH2hOddsData_customApi.bind(this);
 
         //TODO remove because deprecated
         this.handleFetchAndFilterLiveAndUpcomingGames_customApi = this.handleFetchAndFilterLiveAndUpcomingGames_customApi.bind(this);
@@ -33,11 +35,14 @@ class LiveCharts extends React.Component {
         this.handleResetBook = this.handleResetBook.bind(this);
         this.handleSetDate = this.handleSetDate.bind(this);
         this.handleResetDate = this.handleResetDate.bind(this);
+        this.handleResetGameArray = this.handleResetGameArray.bind(this);
+        this.handleResetBookArrayForContest = this.handleResetBookArrayForContest.bind(this);
     }
 
     handleReset() {
         this.handleResetDate();
         this.handleResetSport();
+        this.handleResetGameArray();
         this.handleResetSelectContest();
     }
 
@@ -48,8 +53,14 @@ class LiveCharts extends React.Component {
         })
     }
     handleResetBook() {
+        this.handleResetBookArrayForContest();
         this.setState({
             _selected_book: 'None',
+        })
+    }
+    handleResetBookArrayForContest() {
+        this.setState({
+            _book_array: [],
         })
     }
     handleSetSport(sport) {
@@ -97,6 +108,13 @@ class LiveCharts extends React.Component {
             }
         })
     }
+
+    handleResetGameArray() {
+        this.setState({
+            _game_array: []
+        })
+    }
+
     //Fetch from custom server
     async fetchLiveAndUpcomingGames_customApi(sport_name, sport, dateIsoString)
     {
@@ -182,11 +200,9 @@ class LiveCharts extends React.Component {
         }
     }
 
-    async fetchLiveAndUpcomingH2hOddsData_customApi(sport_name, sport, bookmaker, startDateIsoString, endDateIsoString)
+    async fetchH2hOddsData_customApi(sport_name, sport, contestId, bookmaker, startDateIsoString, endDateIsoString)
     {
-        //endpoint should be 'scores'
-        let additionalParams = {};
-        const fullAPI = `http://localhost:5000/api/get/pre-game-${sport_name}-odds-h2h-data/?sport=${sport}&bookmakerKey=${bookmaker}&startDate=${startDateIsoString}&endDate=${endDateIsoString}`;
+        const fullAPI = `http://localhost:5000/api/get/pre-game-${sport_name}-odds-h2h-data/?odds_api_game_id=${contestId}sport=${sport}&bookmakerKey=${bookmaker}&startDate=${startDateIsoString}&endDate=${endDateIsoString}`;
         //Check cache first
         const cachedResponse = sessionStorage.getItem(fullAPI);
         if (cachedResponse) {
@@ -206,9 +222,9 @@ class LiveCharts extends React.Component {
                 };
                 //Store in the cache
                 //TODO create a logic function to filter by the actual id key of the matchup
-                // let parsedBookMakerData = parseCustomApiBookmakerDataForSpecifiedContest_returnCurrentGames();
-                sessionStorage.setItem(fullAPI, JSON.stringify(parsedTimeData));
-                return parsedBookMakerData;
+                // let parsedBookMakerData = parseCustomApiBookmakerDataGivenSpecifiedContest(startDateIsoString, endDateIsoString, contestId, data.data);
+                sessionStorage.setItem(fullAPI, JSON.stringify(data.data));
+                return data.data;
             }).catch((error) => {
                 //this.setState({ errorMessage: error.toString() });
                 console.error('There was an error!', error);
@@ -231,6 +247,30 @@ class LiveCharts extends React.Component {
             _game_array: liveAndUpcomingContests_arrayData,
         });
     }
+    
+    
+    async handleFetchAndFilterH2hOddsData_customApi() 
+    {
+        let isoCurrentDateTime = null;
+        let endDateIsoString = "";
+        let contestId = null;
+        let bookmaker = null;
+        if(this.state._selected_date && this.state._selected_contest.id && this.state._selected_book)
+        {
+            isoCurrentDateTime = this.state._selected_date.toISOString().substring(0, 19) + 'Z';
+            let currentDate = this.state._selected_date;
+            let currentDatePlusOne = currentDate.setDate(currentDate.getDate + 1)
+            endDateIsoString = currentDatePlusOne.toISOString().substring(0, 19) + 'Z';;
+            contestId = this.state._selected_contest.id;
+            bookmaker = this.state._selected_book;
+        }
+        //TODO: update these arguments for all sports NOT hardcoded for NFL
+        let bookMakerDataArray = await this.fetchH2hOddsData_customApi("nfl", "americanfootball_nfl", contestId, bookmaker, isoCurrentDateTime, endDateIsoString);
+        this.setState({
+            _book_array: bookMakerDataArray,
+        });
+    }
+    
 
     render() {
         let renderedContent = <>
@@ -242,6 +282,7 @@ class LiveCharts extends React.Component {
                         </div>
                         <div class="col-md-3 col-sm-3">
                         <button type="button" 
+                        disabled={true}
                         class="btn btn-primary btn-block mb-4"
                         onClick={() => this.handleSetSport('NBA')}
                         >NBA</button>
@@ -301,7 +342,10 @@ class LiveCharts extends React.Component {
         if(this.state._selected_sport != 'None' && this.state._selected_date && this.state._selected_book && Object.values(this.state._selected_contest).every(value => value !== null))
         {
             renderedChart = <>
-                <ZoomLineChart></ZoomLineChart>
+                <ZoomLineChart
+                handleFetchAndFilterH2hOddsData_customApi={this.handleFetchAndFilterH2hOddsData_customApi}
+                bookMakerArray={this.state._book_array}
+                ></ZoomLineChart>
             </>
         }
 
