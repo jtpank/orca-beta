@@ -14,7 +14,7 @@ class LiveCharts extends React.Component {
             _selected_sport: 'None',
             _selected_book: 'None',
             _selected_date: null,
-            _selected_contest: {"id": null},
+            _selected_contest: {"id": ""},
             _book_array: [],
             _game_array: [],
 
@@ -90,7 +90,7 @@ class LiveCharts extends React.Component {
     }
 
     handleSelectContest(game) {
-        console.log("handleselectcontest: ")
+        console.log("handleselectcontest fire line 93 LiveCharts.js: ")
         console.log(game)
         this.setState({
             _selected_contest: {
@@ -103,8 +103,8 @@ class LiveCharts extends React.Component {
     handleResetSelectContest() {
         this.setState({
             _selected_contest: {
-                "id": null,
-                "home_team": null,
+                "id": "",
+                "home_team": "",
             }
         })
     }
