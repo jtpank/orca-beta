@@ -3,7 +3,6 @@ import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import ZoomLineChart from '../components/ZoomLineChart';
 import DateSelect from '../components/DateSelect';
-import filterOddsApiData from '../logic/filterOddsApiData';
 import ContestTemplate from '../components/ContestTemplate';
 import parseCustomApiUpcomingGames_returnCurrentGames from '../logic/parseCustomApiUpcomingGames_returnCurrentGames';
 import DropDownSelect from '../components/DropDownSelect';
@@ -12,7 +11,7 @@ class LiveCharts extends React.Component {
         super(props);
         this.state = {
             _selected_sport: 'None',
-            _selected_book: 'None',
+            _selected_book: null,
             _selected_date: null,
             _selected_contest: {"id": null},
             _game_array: [],
@@ -253,7 +252,7 @@ class LiveCharts extends React.Component {
             </>
 
         }
-        if(this.state._selected_sport != 'None' && this.state._selected_date && this.state._selected_book && Object.values(this.state._selected_contest).every(value => value !== null))
+        if(this.state._selected_sport != 'None' && this.state._selected_date && Object.values(this.state._selected_contest).every(value => value !== null))
         {
             renderedSelectBook = <>
                 <DropDownSelect
@@ -261,7 +260,9 @@ class LiveCharts extends React.Component {
                 selectedBook = {this.state._selected_book}
                 ></DropDownSelect>
             </>
-
+        }
+        if(this.state._selected_sport != 'None' && this.state._selected_date && this.state._selected_book && Object.values(this.state._selected_contest).every(value => value !== null))
+        {
             renderedChart = <>
                 <ZoomLineChart></ZoomLineChart>
             </>

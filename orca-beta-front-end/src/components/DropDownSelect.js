@@ -12,11 +12,10 @@ class DropDownSelect extends React.Component {
             value={this.props.selectedBook}
             onChange={this.props.handleSetBook}
           >
-            <option value="Bovada">Bovada</option>
-            <option value="BetMGM">BetMGM</option>
-            <option value="PointUSA">PointUSA</option>
-            <option value="NewBook">NewBook</option>
-            <option value="SuperUSA">SuperUSA</option>
+            <option value="bovada">Bovada</option>
+            <option value="draftkings">Draftkings</option>
+            <option value="fanduel">Fanduel</option>
+            <option value="betmgm">BetMGM</option>
           </select>
           <p>Selected book: {this.props.selectedBook}</p>
         </div>
