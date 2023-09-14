@@ -169,33 +169,33 @@ class ZoomLineChart extends React.Component {
           // Perform an asynchronous task, e.g., fetch data from an API
           const bookMakerDataArray = await this.props.handleFetchAndFilterH2hOddsData_customApi();
           console.log("success mount")
-          this.setState((prevState) => ({
-            series: [
-              {
-                name: "home-team-prices",
-                data: bookMakerDataArray.map(obj => obj.home_team_price)
-              },
-              {
-                name: "away-team-prices",
-                data: bookMakerDataArray.map(obj => obj.away_team_price)
-              }
-            ],
-          options: {
-            ...prevState.options,
-                xaxis: {
-                  categories: bookMakerDataArray.map(obj => obj.last_update),
-                  title: {
-                    text: "X Axis Label",
-                    style: {
-                      fontSize: "14px",
-                      fontWeight: 600,
-                      cssClass: "x-axis-label",
-                    },
-                  },
+        //   this.setState((prevState) => ({
+        //     series: [
+        //       {
+        //         name: "home-team-prices",
+        //         data: bookMakerDataArray.map(obj => obj.home_team_price)
+        //       },
+        //       {
+        //         name: "away-team-prices",
+        //         data: bookMakerDataArray.map(obj => obj.away_team_price)
+        //       }
+        //     ],
+        //   options: {
+        //     ...prevState.options,
+        //         xaxis: {
+        //           categories: bookMakerDataArray.map(obj => obj.last_update),
+        //           title: {
+        //             text: "X Axis Label",
+        //             style: {
+        //               fontSize: "14px",
+        //               fontWeight: 600,
+        //               cssClass: "x-axis-label",
+        //             },
+        //           },
                   
-                },
-        },
-          }));
+        //         },
+        // },
+        //   }));
         } catch (error) {
           console.error('Error:', error);
         }
@@ -205,7 +205,10 @@ class ZoomLineChart extends React.Component {
     render() {
       return (
         <div id="chart">
-            <Chart options={this.state.options} series={this.state.series} type="area" />
+          <div>
+            <p>Here is loaded mounted chart</p>
+          </div>
+            {/* <Chart options={this.state.options} series={this.state.series} type="area" /> */}
         </div>
       );
     }

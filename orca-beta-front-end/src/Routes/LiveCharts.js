@@ -12,7 +12,7 @@ class LiveCharts extends React.Component {
         super(props);
         this.state = {
             _selected_sport: 'None',
-            _selected_book: null,
+            _selected_book: 'None',
             _selected_date: null,
             _selected_contest: {"id": null},
             _book_array: [],
@@ -345,7 +345,7 @@ class LiveCharts extends React.Component {
                 ></DropDownSelect>
             </>
         }
-        if(this.state._selected_sport != 'None' && this.state._selected_date && this.state._selected_book && Object.values(this.state._selected_contest).every(value => value !== null))
+        if(this.state._selected_sport != 'None' && this.state._selected_date && this.state._selected_book != 'None' && Object.values(this.state._selected_contest).every(value => value !== null))
         {
            
             renderedChart = <>
