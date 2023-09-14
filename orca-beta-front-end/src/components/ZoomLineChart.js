@@ -107,11 +107,11 @@ class ZoomLineChart extends React.Component {
       };
     }
 
-    componentDidMount() 
+    async componentDidMount() 
     {
         try {
           // Perform an asynchronous task, e.g., fetch data from an API
-          const bookMakerDataArray = this.props.handleFetchAndFilterH2hOddsData_customApi();
+          const bookMakerDataArray = await this.props.handleFetchAndFilterH2hOddsData_customApi();
           console.log("success mount")
           this.setState((prevState) => ({
             series: [
@@ -144,12 +144,12 @@ class ZoomLineChart extends React.Component {
           console.error('Error:', error);
         }
     }
-    componentDidUpdate(prevProps) {
+    async componentDidUpdate(prevProps) {
       if (this.props.selectedBook !== prevProps.selectedBook) {
         // This function will be called whenever parentState changes
         try {
           // Perform an asynchronous task, e.g., fetch data from an API
-          const bookMakerDataArray = this.props.handleFetchAndFilterH2hOddsData_customApi();
+          const bookMakerDataArray = await this.props.handleFetchAndFilterH2hOddsData_customApi();
           console.log("success component update in zoomline chart!")
           this.setState((prevState) => ({
             series: [
