@@ -180,7 +180,7 @@ class LiveCharts extends React.Component {
         }
     }
 
-    async handleFetchAndFilter_theoddsapi()
+    async handleFetchAndFilter_customApi()
     {
         let isoCurrentDateTime = null;
         if(this.state._selected_date)
@@ -241,7 +241,7 @@ class LiveCharts extends React.Component {
         {
             renderedContests = <>
                 <ContestTemplate
-                handleFetchAndFilter_theoddsapi={this.handleFetchAndFilter_theoddsapi}
+                handleFetchAndFilter_customApi={this.handleFetchAndFilter_customApi}
                 game_array={this.state._game_array}
                 handleSelectContest={this.handleSelectContest}
                 selectedDate={this.state._selected_date}
