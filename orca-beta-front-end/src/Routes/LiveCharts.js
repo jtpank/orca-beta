@@ -346,12 +346,95 @@ class LiveCharts extends React.Component {
         {
             console.log("_book_array")
             console.log(this.state._book_array);
+            let opts = {
+                chart: {
+                  type: 'area',
+                  stacked: false,
+                  height: '10%',
+                  width: '50%',
+                  zoom: {
+                    type: 'x',
+                    enabled: true,
+                    autoScaleYaxis: true
+                  },
+                  toolbar: {
+                    autoSelected: 'zoom'
+                  }
+                },
+                dataLabels: {
+                  enabled: false
+                },
+                markers: {
+                  size: 0,
+                },
+                title: {
+                  text: 'Live Odds Data',
+                  align: 'left'
+                },
+                fill: {
+                  type: 'gradient',
+                  gradient: {
+                    shadeIntensity: 1,
+                    inverseColors: false,
+                    opacityFrom: 0.5,
+                    opacityTo: 0,
+                    stops: [0, 90, 100]
+                  },
+                },
+                tooltip: {
+                  shared: false,
+                  y: {
+                    formatter: function (val) {
+                      return (val / 1).toFixed(0)
+                    }
+                  }
+                },
+                yaxis: {
+                  title: {
+                    text: "Y Axis Label",
+                    style: {
+                      fontSize: "14px",
+                      fontWeight: 600,
+                      cssClass: "y-axis-label",
+                    },
+                  },
+                  min: 0, // Minimum value for the y-axis
+                  max: 1000, // Maximum value for the y-axis
+                },
+                xaxis: {
+                  categories: this.state._book_array.map(obj => obj.last_update),
+                  title: {
+                    text: "X Axis Label",
+                    style: {
+                      fontSize: "14px",
+                      fontWeight: 600,
+                      cssClass: "x-axis-label",
+                    },
+                  },
+                  
+                },
+            }
+            let series_data = {
+                series: [
+                  {
+                    name: "home-team-prices",
+                    data: this.state._book_array.map(obj => obj.home_team_price)
+                  },
+                  {
+                    name: "away-team-prices",
+                    data: this.state._book_array.map(obj => obj.away_team_price)
+                  }
+                ],
+
+              }
             renderedChart = <>
                 <ZoomLineChart
                 handleFetchAndFilterH2hOddsData_customApi={this.handleFetchAndFilterH2hOddsData_customApi}
-                homeTeamPriceArray={this.state._book_array.map(obj => obj.home_team_price)}
-                awayTeamPriceArray={this.state._book_array.map(obj => obj.away_team_price)}
-                lastUpdate={this.state._book_array.map(obj => obj.last_update)}
+                options={opts}
+                series={series_data}
+                // homeTeamPriceArray={this.state._book_array.map(obj => obj.home_team_price)}
+                // awayTeamPriceArray={this.state._book_array.map(obj => obj.away_team_price)}
+                // lastUpdate={this.state._book_array.map(obj => obj.last_update)}
                 ></ZoomLineChart>
             </>
         }
