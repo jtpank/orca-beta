@@ -19,6 +19,7 @@ class LiveCharts extends React.Component {
         }
         this.fetchLiveAndUpcomingNflGames_theoddsapi  = this.fetchLiveAndUpcomingNflGames_theoddsapi.bind(this);
         this.fetchLiveAndUpcomingGames_customApi = this.fetchLiveAndUpcomingGames_customApi.bind(this);
+        this.fetchLiveAndUpcomingH2hOddsData_customApi = this.fetchLiveAndUpcomingH2hOddsData_customApi.bind(this);
 
         //TODO remove because deprecated
         this.handleFetchAndFilterLiveAndUpcomingGames_customApi = this.handleFetchAndFilterLiveAndUpcomingGames_customApi.bind(this);
@@ -180,6 +181,42 @@ class LiveCharts extends React.Component {
             return externResponse;
         }
     }
+
+    async fetchLiveAndUpcomingH2hOddsData_customApi(sport_name, sport, bookmaker, startDateIsoString, endDateIsoString)
+    {
+        //endpoint should be 'scores'
+        let additionalParams = {};
+        const fullAPI = `http://localhost:5000/api/get/pre-game-${sport_name}-odds-h2h-data/?sport=${sport}&bookmakerKey=${bookmaker}&startDate=${startDateIsoString}&endDate=${endDateIsoString}`;
+        //Check cache first
+        const cachedResponse = sessionStorage.getItem(fullAPI);
+        if (cachedResponse) {
+          const data = JSON.parse(cachedResponse);
+          return data;
+        }
+        else
+        {
+            const externResponse = await fetch(fullAPI)
+            .then(async (response) => {
+                const data = await response.json();
+                // check for error response
+                if (!response.ok) {
+                // get error message from body or default to response statusText
+                const error = (data && data.message) || response.statusText;
+                return Promise.reject(error);
+                };
+                //Store in the cache
+                //TODO create a logic function to filter by the actual id key of the matchup
+                // let parsedBookMakerData = parseCustomApiBookmakerDataForSpecifiedContest_returnCurrentGames();
+                sessionStorage.setItem(fullAPI, JSON.stringify(parsedTimeData));
+                return parsedBookMakerData;
+            }).catch((error) => {
+                //this.setState({ errorMessage: error.toString() });
+                console.error('There was an error!', error);
+            });
+            return externResponse;
+        }
+    }
+
 
     async handleFetchAndFilterLiveAndUpcomingGames_customApi()
     {
