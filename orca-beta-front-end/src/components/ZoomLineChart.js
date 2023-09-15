@@ -130,17 +130,17 @@ class ZoomLineChart extends React.Component {
             series: [
               {
                 name: "home-team-prices",
-                data: bookMakerDataArray.map(obj => obj.home_team_price)
+                data:  (Array.isArray(bookMakerDataArray) ? bookMakerDataArray.map(obj => obj.home_team_price) : []),
               },
               {
                 name: "away-team-prices",
-                data: bookMakerDataArray.map(obj => obj.away_team_price)
+                data: (Array.isArray(bookMakerDataArray) ? bookMakerDataArray.map(obj => obj.away_team_price) : []),
               }
             ],
           options: {
             ...prevState.options,
                 xaxis: {
-                  categories: bookMakerDataArray.map(obj => obj.last_update),
+                  categories: (Array.isArray(bookMakerDataArray) ? bookMakerDataArray.map(obj => obj.last_update) : []),
                   title: {
                     text: "X Axis Label",
                     style: {
