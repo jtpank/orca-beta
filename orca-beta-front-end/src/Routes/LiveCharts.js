@@ -166,7 +166,7 @@ class LiveCharts extends React.Component {
         //example: https://api.the-odds-api.com/v4/sports/americanfootball_nfl/scores/?apiKey=c12e854a72219eb10a45e79013747e40
         // const apiKey = process.env.REACT_APP_ODDS_API_API_KEY;
         const oddsAPI = 'https://api.the-odds-api.com/v4/sports/americanfootball_nfl/scores';
-        const apiKey = "c12e854a72219eb10a45e79013747e40";
+        const apiKey = "";
         const fullAPI = `${oddsAPI}?apiKey=${apiKey}&date=${isoCurrentDateTime}`;
         //Check cache first
         const cachedResponse = sessionStorage.getItem(fullAPI);
