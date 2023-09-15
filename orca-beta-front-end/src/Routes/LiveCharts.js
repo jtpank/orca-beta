@@ -343,7 +343,7 @@ class LiveCharts extends React.Component {
             </>
 
         }
-        if(this.state._selected_sport != 'None' && this.state._selected_date && Object.values(this.state._selected_contest).every(value => value !== null))
+        if(this.state._selected_sport != 'None' && this.state._selected_date && Object.values(this.state._selected_contest).every(value => ((value !== null) &&  (value !== ""))))
         {
             renderedSelectBook = <>
                 <DropDownSelect
@@ -352,7 +352,7 @@ class LiveCharts extends React.Component {
                 ></DropDownSelect>
             </>
         }
-        if(this.state._selected_sport != 'None' && this.state._selected_date && this.state._selected_book != 'None' && Object.values(this.state._selected_contest).every(value => value !== null))
+        if(this.state._selected_sport != 'None' && this.state._selected_date && this.state._selected_book != 'None' && Object.values(this.state._selected_contest).every(value => ((value !== null) &&  (value !== ""))))
         {
            
             renderedChart = <>
