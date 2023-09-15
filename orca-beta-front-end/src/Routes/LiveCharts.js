@@ -75,6 +75,7 @@ class LiveCharts extends React.Component {
     }
     handleSetDate(date) {
         this.handleResetSelectContest();
+        this.handleResetBook();
         this.setState((prevState) => ({
             _selected_date: date,
           }), () => {
