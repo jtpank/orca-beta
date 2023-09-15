@@ -6,8 +6,6 @@ module.exports = global.config = {
     //     }
     //     // rest of your translation object
     // }
-    api_server: {
-        "localhost:5000"
-    }
     // other global config variables you wish
+    api_server: "localhost:5000",
 };
