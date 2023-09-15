@@ -78,6 +78,9 @@ class ZoomLineChart extends React.Component {
                 max: 1000, // Maximum value for the y-axis
                 labels: {
                   show: true, // Allow user to see and modify the labels
+                  align: 'right',
+                  minWidth: 0,
+                  maxWidth: 160,
                 },
               },
               xaxis: {
