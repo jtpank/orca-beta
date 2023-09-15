@@ -18,6 +18,7 @@ class DateSelect extends React.Component {
                 minDate={new Date()}
                 format="yyyy-MM-dd'T'HH:mm:ss'Z'"
                 placeholderText="Please select date"
+                holidays={[]}
                 />
                 {this.props.selectedDate && <p>Selected Date: {this.props.selectedDate.toISOString()}</p>}
             </div>
