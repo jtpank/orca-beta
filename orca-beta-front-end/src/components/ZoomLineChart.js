@@ -120,8 +120,7 @@ class ZoomLineChart extends React.Component {
       };
     }
 
-    async componentDidMount() 
-    {
+    async componentDidMount() {
         try {
           // Perform an asynchronous task, e.g., fetch data from an API
           const bookMakerDataArray = await this.props.handleFetchAndFilterH2hOddsData_customApi();
@@ -130,6 +129,8 @@ class ZoomLineChart extends React.Component {
           let categories_array = [];
           let min_of_both_arrays = -200;
           let max_of_both_arrays = 200;
+          let home_team = "";
+          let away_team = "";
           if(Array.isArray(bookMakerDataArray))
           {
             home_team_price_array = bookMakerDataArray.map(obj => obj.home_team_price);
@@ -138,16 +139,18 @@ class ZoomLineChart extends React.Component {
             let both_arrays = home_team_price_array.concat(away_team_price_array);
             min_of_both_arrays = Math.floor(Math.min(...both_arrays)*1.5);
             max_of_both_arrays = Math.floor(Math.max(...both_arrays)*1.5);
+            home_team = bookMakerDataArray[0]["home_team"];
+            away_team = bookMakerDataArray[0]["away_team"];
           }
           console.log("success mount")
           this.setState((prevState) => ({
             series: [
               {
-                name: "home-team-prices",
+                name: `${home_team} / Home`,
                 data:  home_team_price_array,
               },
               {
-                name: "away-team-prices",
+                name: `${away_team} / Away`,
                 data: away_team_price_array,
               }
             ],
@@ -184,6 +187,8 @@ class ZoomLineChart extends React.Component {
          let categories_array = [];
          let min_of_both_arrays = -200;
          let max_of_both_arrays = 200;
+         let home_team = "";
+         let away_team = "";
          if(Array.isArray(bookMakerDataArray))
          {
            home_team_price_array = bookMakerDataArray.map(obj => obj.home_team_price);
@@ -192,6 +197,8 @@ class ZoomLineChart extends React.Component {
            let both_arrays = home_team_price_array.concat(away_team_price_array);
            min_of_both_arrays = Math.floor(Math.min(...both_arrays)*1.5);
            max_of_both_arrays = Math.floor(Math.max(...both_arrays)*1.5);
+           home_team = bookMakerDataArray[0]["home_team"];
+           away_team = bookMakerDataArray[0]["away_team"];
          }
         try {
           // Perform an asynchronous task, e.g., fetch data from an API
@@ -200,11 +207,11 @@ class ZoomLineChart extends React.Component {
           this.setState((prevState) => ({
             series: [
               {
-                name: "home-team-prices",
-                data: home_team_price_array,
+                name: `${home_team} / Home`,
+                data:  home_team_price_array,
               },
               {
-                name: "away-team-prices",
+                name: `${away_team} / Away`,
                 data: away_team_price_array,
               }
             ],
