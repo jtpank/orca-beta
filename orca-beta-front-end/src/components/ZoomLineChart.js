@@ -136,8 +136,8 @@ class ZoomLineChart extends React.Component {
             away_team_price_array = bookMakerDataArray.map(obj => obj.away_team_price);
             categories_array = bookMakerDataArray.map(obj => obj.last_update);
             let both_arrays = home_team_price_array.concat(away_team_price_array);
-            min_of_both_arrays = Math.min(...both_arrays);
-            max_of_both_arrays = Math.max(...both_arrays);
+            min_of_both_arrays = Math.floor(Math.min(...both_arrays)*1.5);
+            max_of_both_arrays = Math.floor(Math.max(...both_arrays)*1.5);
           }
           console.log("success mount")
           this.setState((prevState) => ({
@@ -190,8 +190,8 @@ class ZoomLineChart extends React.Component {
            away_team_price_array = bookMakerDataArray.map(obj => obj.away_team_price);
            categories_array = bookMakerDataArray.map(obj => obj.last_update);
            let both_arrays = home_team_price_array.concat(away_team_price_array);
-           min_of_both_arrays = Math.min(...both_arrays);
-           max_of_both_arrays = Math.max(...both_arrays);
+           min_of_both_arrays = Math.floor(Math.min(...both_arrays)*1.5);
+           max_of_both_arrays = Math.floor(Math.max(...both_arrays)*1.5);
          }
         try {
           // Perform an asynchronous task, e.g., fetch data from an API
