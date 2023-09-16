@@ -5,8 +5,10 @@ class ContestTemplate extends Component {
         super(props);
         this.state = {
           selectedGameId: null,
+          isCollapsed: false,
         };
         this.handleSelectContestBlock = this.handleSelectContestBlock.bind(this);
+        this.toggleCollapse = this.toggleCollapse.bind(this);
     
       }
       componentDidMount() {
@@ -21,10 +23,14 @@ class ContestTemplate extends Component {
             this.props.handleFetchAndFilterLiveAndUpcomingGames_customApi();
           }
         }
-
       handleSelectContestBlock(selectedGameId) {
         this.setState({ selectedGameId });
       };
+      toggleCollapse() {
+        this.setState((prevState) => ({
+          isCollapsed: !prevState.isCollapsed,
+        }))
+      }
     
   render() {
     let arrayContestBlocks = [];
@@ -46,7 +52,17 @@ class ContestTemplate extends Component {
     }
       
     return (
-        <div className="row">
+      <div className="container mt-4">
+      <div className="row">
+        <button
+          className="btn btn-primary"
+          type="button"
+          onClick={this.toggleCollapse}
+        >
+        Collapse Contests
+        </button>
+      </div>
+        <div className={`row ${this.state.isCollapsed ? 'collapse' : ''}`}>
             Sport Template
             <p>
               {this.props.selectedDate.toISOString()}
@@ -56,6 +72,7 @@ class ContestTemplate extends Component {
                 {block}
               </div>
             ))}
+        </div>
         </div>
     );
   }
