@@ -1,12 +1,16 @@
 import React from 'react';
-import DatePicker from 'react-datepicker';
-import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from 'react-date-picker';
+import Form from "react-bootstrap/Form";
+import 'react-date-picker/dist/DatePicker.css';
+import 'react-calendar/dist/Calendar.css';
 class DateSelect extends React.Component {
     constructor(props) {
         super(props);
       }
     
       handleDateChange = (newDate) => {
+        console.log("date: ")
+        console.log(newDate)
         this.props.handleSetDate(newDate);
       };
     render() {
@@ -18,7 +22,7 @@ class DateSelect extends React.Component {
                 minDate={new Date()}
                 format="yyyy-MM-dd'T'HH:mm:ss'Z'"
                 placeholderText="Please select date"
-                holidays={this.props.holidays}
+                holidays={this.props.holidays || []}
                 />
                 {this.props.selectedDate && <p>Selected Date: {this.props.selectedDate.toISOString()}</p>}
             </div>
