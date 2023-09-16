@@ -7,5 +7,6 @@ module.exports = global.config = {
     //     // rest of your translation object
     // }
     // other global config variables you wish
-    api_server: "192.168.1.30:5000",
+    protocol: "https",
+    api_server: "orcabets.com",
 };

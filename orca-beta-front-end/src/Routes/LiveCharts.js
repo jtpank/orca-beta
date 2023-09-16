@@ -118,7 +118,7 @@ class LiveCharts extends React.Component {
     {
         //endpoint should be 'scores'
         let additionalParams = {};
-        const fullAPI = `http://${global.config.api_server}/api/get/live-${sport_name}-scores-data?sport=${sport}&date=${dateIsoString}`;
+        const fullAPI = `${global.config.protocol}://${global.config.api_server}/api/get/live-${sport_name}-scores-data?sport=${sport}&date=${dateIsoString}`;
         //Check cache first
         const cachedResponse = sessionStorage.getItem(fullAPI);
         if (cachedResponse) {
@@ -200,7 +200,7 @@ class LiveCharts extends React.Component {
 
     async fetchH2hOddsData_customApi(sport_name, sport, contestId, bookmaker, startDateIsoString, endDateIsoString)
     {
-        const fullAPI = `http://${global.config.api_server}/api/get/pre-game-${sport_name}-odds-h2h-data?odds_api_game_id=${contestId}&sport=${sport}&bookmakerKey=${bookmaker}&startDate=${startDateIsoString}&endDate=${endDateIsoString}`;
+        const fullAPI = `${global.config.protocol}://${global.config.api_server}/api/get/pre-game-${sport_name}-odds-h2h-data?odds_api_game_id=${contestId}&sport=${sport}&bookmakerKey=${bookmaker}&startDate=${startDateIsoString}&endDate=${endDateIsoString}`;
         //Check cache first
         // const cachedResponse = sessionStorage.getItem(fullAPI);
         // if (cachedResponse) {
