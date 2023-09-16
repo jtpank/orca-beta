@@ -52,7 +52,7 @@ class ContestTemplate extends Component {
               {this.props.selectedDate.toISOString()}
             </p>
             {arrayContestBlocks.map((block, index) => (
-              <div className="col-md-6" key={index % 3}>
+              <div className="col-md-6" key={block.key}>
                 {block}
               </div>
             ))}
