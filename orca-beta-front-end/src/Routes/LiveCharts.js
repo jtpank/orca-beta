@@ -13,7 +13,7 @@ class LiveCharts extends React.Component {
         this.state = {
             _selected_sport: 'None',
             _selected_book: 'None',
-            _selected_date: null,
+            _selected_date: new Date(),
             _selected_contest: {"id": ""},
             _book_array: [],
             _game_array: [],
@@ -74,10 +74,12 @@ class LiveCharts extends React.Component {
         })
     }
     handleSetDate(date) {
+        console.log("date in handleSetDate:");
+        console.log(this.state._selected_date.toISOString().split("T")[0]);
         this.handleResetSelectContest();
         this.handleResetBook();
         this.setState((prevState) => ({
-            _selected_date: date,
+            _selected_date: new Date(date),
           }), () => {
             // This callback is called after the state has been updated.
             // console.log("State has been updated:", this.state._selected_date);
@@ -85,7 +87,7 @@ class LiveCharts extends React.Component {
     }
     handleResetDate() {
         this.setState({
-            _selected_date: null,
+            _selected_date: new Date(),
         })
     }
 
@@ -241,7 +243,7 @@ class LiveCharts extends React.Component {
 
     async handleFetchAndFilterLiveAndUpcomingGames_customApi()
     {
-        let isoCurrentDateTime = null;
+        let isoCurrentDateTime = "";
         if(this.state._selected_date)
         {
             isoCurrentDateTime = this.state._selected_date.toISOString().substring(0, 19) + 'Z';
@@ -256,7 +258,7 @@ class LiveCharts extends React.Component {
     
     async handleFetchAndFilterH2hOddsData_customApi() 
     {
-        let isoCurrentDateTime = null;
+        let isoCurrentDateTime = "";
         let endDateIsoString = "";
         let contestId = null;
         let bookmaker = null;
@@ -322,6 +324,7 @@ class LiveCharts extends React.Component {
                 <DateSelect
                 handleSetDate={this.handleSetDate}
                 selectedDate={this.state._selected_date}
+                holidays={[]}
                 ></DateSelect>
                 </div>
                 <div className="row mb-4">
