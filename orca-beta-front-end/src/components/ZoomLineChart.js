@@ -125,22 +125,36 @@ class ZoomLineChart extends React.Component {
         try {
           // Perform an asynchronous task, e.g., fetch data from an API
           const bookMakerDataArray = await this.props.handleFetchAndFilterH2hOddsData_customApi();
+          let home_team_price_array = [];
+          let away_team_price_array = [];
+          let categories_array = [];
+          let min_of_both_arrays = -200;
+          let max_of_both_arrays = 200;
+          if(Array.isArray(bookMakerDataArray))
+          {
+            home_team_price_array = bookMakerDataArray.map(obj => obj.home_team_price);
+            away_team_price_array = bookMakerDataArray.map(obj => obj.away_team_price);
+            categories_array = bookMakerDataArray.map(obj => obj.last_update);
+            let both_arrays = home_team_price_array.concat(away_team_price_array);
+            min_of_both_arrays = Math.min(...both_arrays);
+            max_of_both_arrays = Math.max(...both_arrays);
+          }
           console.log("success mount")
           this.setState((prevState) => ({
             series: [
               {
                 name: "home-team-prices",
-                data:  (Array.isArray(bookMakerDataArray) ? bookMakerDataArray.map(obj => obj.home_team_price) : []),
+                data:  home_team_price_array,
               },
               {
                 name: "away-team-prices",
-                data: (Array.isArray(bookMakerDataArray) ? bookMakerDataArray.map(obj => obj.away_team_price) : []),
+                data: away_team_price_array,
               }
             ],
           options: {
             ...prevState.options,
                 xaxis: {
-                  categories: (Array.isArray(bookMakerDataArray) ? bookMakerDataArray.map(obj => obj.last_update) : []),
+                  categories: categories_array,
                   title: {
                     text: "X Axis Label",
                     style: {
@@ -151,6 +165,10 @@ class ZoomLineChart extends React.Component {
                   },
                   
                 },
+                yaxis: {
+                  min: min_of_both_arrays,
+                  max: max_of_both_arrays,
+                }
         },
           }));
         } catch (error) {
@@ -159,7 +177,22 @@ class ZoomLineChart extends React.Component {
     }
     async componentDidUpdate(prevProps) {
       if (this.props.selectedBook !== prevProps.selectedBook) {
-        // This function will be called whenever parentState changes
+         // Perform an asynchronous task, e.g., fetch data from an API
+         const bookMakerDataArray = await this.props.handleFetchAndFilterH2hOddsData_customApi();
+         let home_team_price_array = [];
+         let away_team_price_array = [];
+         let categories_array = [];
+         let min_of_both_arrays = -200;
+         let max_of_both_arrays = 200;
+         if(Array.isArray(bookMakerDataArray))
+         {
+           home_team_price_array = bookMakerDataArray.map(obj => obj.home_team_price);
+           away_team_price_array = bookMakerDataArray.map(obj => obj.away_team_price);
+           categories_array = bookMakerDataArray.map(obj => obj.last_update);
+           let both_arrays = home_team_price_array.concat(away_team_price_array);
+           min_of_both_arrays = Math.min(...both_arrays);
+           max_of_both_arrays = Math.max(...both_arrays);
+         }
         try {
           // Perform an asynchronous task, e.g., fetch data from an API
           const bookMakerDataArray = await this.props.handleFetchAndFilterH2hOddsData_customApi();
@@ -168,17 +201,17 @@ class ZoomLineChart extends React.Component {
             series: [
               {
                 name: "home-team-prices",
-                data: (Array.isArray(bookMakerDataArray) ? bookMakerDataArray.map(obj => obj.home_team_price) : []),
+                data: home_team_price_array,
               },
               {
                 name: "away-team-prices",
-                data: (Array.isArray(bookMakerDataArray) ? bookMakerDataArray.map(obj => obj.away_team_price) : []),
+                data: away_team_price_array,
               }
             ],
           options: {
             ...prevState.options,
                 xaxis: {
-                  categories: (Array.isArray(bookMakerDataArray) ? bookMakerDataArray.map(obj => obj.last_update) : []),
+                  categories: categories_array,
                   title: {
                     text: "X Axis Label",
                     style: {
@@ -189,6 +222,10 @@ class ZoomLineChart extends React.Component {
                   },
                   
                 },
+                yaxis: {
+                  min: min_of_both_arrays,
+                  max: max_of_both_arrays,
+                }
         },
           }));
         } catch (error) {
