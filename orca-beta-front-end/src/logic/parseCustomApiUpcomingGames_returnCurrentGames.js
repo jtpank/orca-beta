@@ -42,8 +42,8 @@ export default function parseCustomApiUpcomingGames_returnCurrentGames(isoCurren
         for(let i = 0; i < arrayOfGames.length; i++)
         {
             let game = arrayOfGames[i];
-            console.log("data")
-            console.log(game)
+            // console.log("data")
+            // console.log(game)
             let tempObj = {
                 "id": game["odds_api_game_id"],
                 "commence_time": game["commence_time"],
