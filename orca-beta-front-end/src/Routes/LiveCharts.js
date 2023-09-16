@@ -7,6 +7,7 @@ import ContestTemplate from '../components/ContestTemplate';
 import parseCustomApiBookmakerDataGivenSpecifiedContest from '../logic/parseCustomApiBookmakerDataGivenSpecifiedContest';
 import parseCustomApiUpcomingGames_returnCurrentGames from '../logic/parseCustomApiUpcomingGames_returnCurrentGames';
 import DropDownSelect from '../components/DropDownSelect';
+import CheckBoxSelect from '../components/CheckBoxSelect';
 class LiveCharts extends React.Component {
     constructor(props){
         super(props);
@@ -353,6 +354,8 @@ class LiveCharts extends React.Component {
                 handleSetBook = {this.handleSetBook}
                 selectedBook = {this.state._selected_book}
                 ></DropDownSelect>
+                <CheckBoxSelect>
+                </CheckBoxSelect>
             </>
         }
         if(this.state._selected_sport != 'None' && this.state._selected_date && this.state._selected_book != 'None' && Object.values(this.state._selected_contest).every(value => ((value !== null) &&  (value !== ""))))
