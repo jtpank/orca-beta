@@ -280,7 +280,7 @@ class LiveCharts extends React.Component {
         //TODO: update these arguments for all sports NOT hardcoded for NFL
         let bookMakerDataArray = await this.fetchH2hOddsData_customApi("nfl", "americanfootball_nfl", contestId, bookmaker, startDateIsoString, endDateIsoString);
         // console.log("fired in LiveCharts.js line 272 here is the bookMakerDataArray:")
-        // console.log(bookMakerDataArray);
+        // console.log(bookMakerDataArray[0]);
         this.setState({
             _book_array: bookMakerDataArray,
         });
@@ -325,7 +325,6 @@ class LiveCharts extends React.Component {
                 <DateSelect
                 handleSetDate={this.handleSetDate}
                 selectedDate={this.state._selected_date}
-                holidays={[]}
                 ></DateSelect>
                 </div>
                 <div className="row mb-4">
@@ -354,7 +353,9 @@ class LiveCharts extends React.Component {
                 handleSetBook = {this.handleSetBook}
                 selectedBook = {this.state._selected_book}
                 ></DropDownSelect>
-                <CheckBoxSelect>
+                <CheckBoxSelect
+                book_array={["bovada","draftkings"]}
+                >
                 </CheckBoxSelect>
             </>
         }
