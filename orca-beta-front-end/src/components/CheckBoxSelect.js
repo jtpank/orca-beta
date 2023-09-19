@@ -8,7 +8,7 @@ class CheckBoxSelect extends React.Component {
       return (
         <div>
           <h1>CheckBox Select Example</h1>
-          {/* {this.props.book_array.map((book, index) => (
+          {this.props.book_array.map((book, index) => (
             <div className="form-check" key={index}>
               <input
                 className="form-check-input"
@@ -20,7 +20,7 @@ class CheckBoxSelect extends React.Component {
                 {book}
               </label>
             </div>
-          ))} */}
+          ))}
         </div>
       );
     }

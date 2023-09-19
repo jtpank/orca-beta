@@ -20,11 +20,10 @@ class LiveCharts extends React.Component {
             _game_array: [],
 
         }
-        this.fetchLiveAndUpcomingNflGames_theoddsapi  = this.fetchLiveAndUpcomingNflGames_theoddsapi.bind(this);
         this.fetchLiveAndUpcomingGames_customApi = this.fetchLiveAndUpcomingGames_customApi.bind(this);
         this.fetchH2hOddsData_customApi = this.fetchH2hOddsData_customApi.bind(this);
         this.handleFetchAndFilterH2hOddsData_customApi = this.handleFetchAndFilterH2hOddsData_customApi.bind(this);
-        //TODO remove because deprecated
+
         this.handleFetchAndFilterLiveAndUpcomingGames_customApi = this.handleFetchAndFilterLiveAndUpcomingGames_customApi.bind(this);
 
         this.handleSelectContest = this.handleSelectContest.bind(this);
@@ -141,56 +140,6 @@ class LiveCharts extends React.Component {
                 };
                 //Store in the cache
                 let parsedTimeData = parseCustomApiUpcomingGames_returnCurrentGames(dateIsoString, data.data);
-                sessionStorage.setItem(fullAPI, JSON.stringify(parsedTimeData));
-                return parsedTimeData;
-            }).catch((error) => {
-                //this.setState({ errorMessage: error.toString() });
-                console.error('There was an error!', error);
-            });
-            return externResponse;
-        }
-    }
-
-
-
-    //Fetch from the-odds-api for list of upcoming games
-    async fetchLiveAndUpcomingNflGames_theoddsapi()
-    {
-        let isoCurrentDateTime = null;
-        if(this.state._selected_date)
-        {
-            isoCurrentDateTime = this.state._selected_date.toISOString().substring(0, 19) + 'Z';
-        }
-        // let tempDateObj = new Date(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate());
-        // tempDateObj.setHours(tempDateObj.getHours()-7,30,0);
-        // const formattedStartDate = isoCurrentDateTime.substring(0, 19) + 'Z';
-        // console.log(formattedStartDate)
-        //want to search in range [formattedDate, formattedDate+24 hours)
-        // /odds/&regions=us&markets=h2h,spreads&oddsFormat=american&date=${formattedStartDate}`;
-        //example: https://api.the-odds-api.com/v4/sports/americanfootball_nfl/scores/?apiKey=c12e854a72219eb10a45e79013747e40
-        // const apiKey = process.env.REACT_APP_ODDS_API_API_KEY;
-        const oddsAPI = 'https://api.the-odds-api.com/v4/sports/americanfootball_nfl/scores';
-        const apiKey = "";
-        const fullAPI = `${oddsAPI}?apiKey=${apiKey}&date=${isoCurrentDateTime}`;
-        //Check cache first
-        const cachedResponse = sessionStorage.getItem(fullAPI);
-        if (cachedResponse) {
-          const data = JSON.parse(cachedResponse);
-          return data;
-        }
-        else
-        {
-            const externResponse = await fetch(fullAPI)
-            .then(async (response) => {
-                const data = await response.json();
-                // check for error response
-                if (!response.ok) {
-                // get error message from body or default to response statusText
-                const error = (data && data.message) || response.statusText;
-                return Promise.reject(error);
-                };
-                //Store in the cache
-                let parsedTimeData = parseCustomApiUpcomingGames_returnCurrentGames(isoCurrentDateTime, data);
                 sessionStorage.setItem(fullAPI, JSON.stringify(parsedTimeData));
                 return parsedTimeData;
             }).catch((error) => {
