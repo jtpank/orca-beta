@@ -280,18 +280,16 @@ class LiveCharts extends React.Component {
     }
 
     handleCheckBoxSelect(event, item) {
-        const { items } = this.state._selected_book_array;
         const isChecked = event.target.checked;
-    
         if (isChecked) {
           // If the checkbox is checked, add the item to the array
           this.setState({
-            items: [...items, item],
+            _selected_book_array: [...this.state._selected_book_array, item],
           });
         } else {
           // If the checkbox is unchecked, remove the item from the array
           this.setState({
-            items: items.filter((selectedItem) => selectedItem !== item),
+            _selected_book_array: this.state._selected_book_array.filter((selectedItem) => selectedItem !== item),
           });
         }
     }
@@ -366,7 +364,7 @@ class LiveCharts extends React.Component {
                 selectedContest={this.state._selected_contest}
                 handleFetchBooksForContestId_customApi={this.handleFetchBooksForContestId_customApi}
                 selectedBookArray={this.state._selected_book_array}
-                handleCheckBoxSelect={this.state.handleCheckBoxSelect}
+                handleCheckBoxSelect={this.handleCheckBoxSelect}
                 >
                 </CheckBoxSelect>
             </>
