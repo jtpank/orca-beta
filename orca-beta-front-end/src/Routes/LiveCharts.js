@@ -26,6 +26,8 @@ class LiveCharts extends React.Component {
 
         this.handleFetchAndFilterLiveAndUpcomingGames_customApi = this.handleFetchAndFilterLiveAndUpcomingGames_customApi.bind(this);
 
+        this.handleFetchBooksForContestId_customApi = this.handleFetchBooksForContestId_customApi.bind(this);
+
         this.handleSelectContest = this.handleSelectContest.bind(this);
         this.handleResetSelectContest = this.handleResetSelectContest.bind(this);
         this.handleReset = this.handleReset.bind(this);
@@ -235,6 +237,45 @@ class LiveCharts extends React.Component {
         });
         return bookMakerDataArray;
     }
+
+    async handleFetchBooksForContestId_customApi(contest_id) 
+    {
+        //TODO: 
+        // update sport to be a variable, other wise it defaults to americanfootball_nfl
+        let sport = "americanfootball_nfl";
+        const fullAPI = `${global.config.protocol}://${global.config.api_server}/api/bookmakers-from-contest-id?sport=${sport}&contest_id=${contest_id}`;
+        //Check cache first
+        const cachedResponse = sessionStorage.getItem(fullAPI);
+        if (cachedResponse) {
+          const data = JSON.parse(cachedResponse);
+          console.log("line 248 bookmaker list from cache");
+          console.log(data);
+          return data;
+        }
+        else
+        {
+            const externResponse = await fetch(fullAPI)
+            .then(async (response) => {
+                const data = await response.json();
+                // check for error response
+                if (!response.ok) {
+                // get error message from body or default to response statusText
+                const error = (data && data.message) || response.statusText;
+                return Promise.reject(error);
+                };
+                //Store in the cache
+                let bookmakersFromContestIdArray =  data.data;
+                console.log("line 265 bookmaker list from api call");
+                console.log(bookmakersFromContestIdArray);
+                sessionStorage.setItem(fullAPI, JSON.stringify(bookmakersFromContestIdArray));
+                return bookmakersFromContestIdArray;
+            }).catch((error) => {
+                //this.setState({ errorMessage: error.toString() });
+                console.error('There was an error!', error);
+            });
+            return externResponse;
+        }
+    }
     
 
     render() {
@@ -303,7 +344,8 @@ class LiveCharts extends React.Component {
                 selectedBook = {this.state._selected_book}
                 ></DropDownSelect>
                 <CheckBoxSelect
-                book_array={["bovada","draftkings"]}
+                selectedContest={this.state._selected_contest}
+                handleFetchBooksForContestId_customApi={this.handleFetchBooksForContestId_customApi}
                 >
                 </CheckBoxSelect>
             </>
