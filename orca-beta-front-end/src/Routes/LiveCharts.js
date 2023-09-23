@@ -212,6 +212,7 @@ class LiveCharts extends React.Component {
     
     async handleFetchAndFilterH2hOddsData_customApi() 
     {
+        //TODO: update so it iterates over all the selected books from the selected book array
         let isoCurrentDateTime = "";
         let endDateIsoString = "";
         let contestId = null;
@@ -376,6 +377,7 @@ class LiveCharts extends React.Component {
             <p>Chart rendered!</p>
                 <ZoomLineChart
                 handleFetchAndFilterH2hOddsData_customApi={this.handleFetchAndFilterH2hOddsData_customApi}
+                selectedBookArray = {this.state._selected_book_array}
                 selectedBook = {this.state._selected_book}
                 ></ZoomLineChart>
             </>
