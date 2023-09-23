@@ -27,6 +27,7 @@ class CheckBoxSelect extends React.Component {
         }
       }
     }
+
     render() {
       return (
         <div>
@@ -38,6 +39,8 @@ class CheckBoxSelect extends React.Component {
                 type="checkbox"
                 name={book}
                 id={book}
+                checked={this.props.selectedBookArray.includes(book)}
+                onChange={(event) => this.props.handleCheckBoxSelect(event, book)}
               />
               <label className="form-check-label" htmlFor={book}>
                 {book}

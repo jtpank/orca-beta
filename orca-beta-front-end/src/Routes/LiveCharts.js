@@ -16,6 +16,7 @@ class LiveCharts extends React.Component {
             _selected_book: 'None',
             _selected_date: new Date(),
             _selected_contest: {"id": ""},
+            _selected_book_array: [],
             _book_array: [],
             _game_array: [],
 
@@ -28,6 +29,7 @@ class LiveCharts extends React.Component {
 
         this.handleFetchBooksForContestId_customApi = this.handleFetchBooksForContestId_customApi.bind(this);
 
+        this.handleCheckBoxSelect = this.handleCheckBoxSelect.bind(this);
         this.handleSelectContest = this.handleSelectContest.bind(this);
         this.handleResetSelectContest = this.handleResetSelectContest.bind(this);
         this.handleReset = this.handleReset.bind(this);
@@ -276,6 +278,23 @@ class LiveCharts extends React.Component {
             return externResponse;
         }
     }
+
+    handleCheckBoxSelect(event, item) {
+        const { items } = this.state._selected_book_array;
+        const isChecked = event.target.checked;
+    
+        if (isChecked) {
+          // If the checkbox is checked, add the item to the array
+          this.setState({
+            items: [...items, item],
+          });
+        } else {
+          // If the checkbox is unchecked, remove the item from the array
+          this.setState({
+            items: items.filter((selectedItem) => selectedItem !== item),
+          });
+        }
+    }
     
 
     render() {
@@ -346,6 +365,8 @@ class LiveCharts extends React.Component {
                 <CheckBoxSelect
                 selectedContest={this.state._selected_contest}
                 handleFetchBooksForContestId_customApi={this.handleFetchBooksForContestId_customApi}
+                selectedBookArray={this.state._selected_book_array}
+                handleCheckBoxSelect={this.state.handleCheckBoxSelect}
                 >
                 </CheckBoxSelect>
             </>
