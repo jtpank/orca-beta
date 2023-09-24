@@ -24,7 +24,7 @@ class LiveCharts extends React.Component {
         this.fetchLiveAndUpcomingGames_customApi = this.fetchLiveAndUpcomingGames_customApi.bind(this);
         this.fetchH2hOddsData_customApi = this.fetchH2hOddsData_customApi.bind(this);
         this.handleFetchAndFilterH2hOddsData_customApi = this.handleFetchAndFilterH2hOddsData_customApi.bind(this);
-
+        this.handleFetchAllH2hOddsDataFromBookArray_customApi = this.handleFetchAllH2hOddsDataFromBookArray_customApi.bind(this);
         this.handleFetchAndFilterLiveAndUpcomingGames_customApi = this.handleFetchAndFilterLiveAndUpcomingGames_customApi.bind(this);
 
         this.handleFetchBooksForContestId_customApi = this.handleFetchBooksForContestId_customApi.bind(this);
@@ -209,6 +209,33 @@ class LiveCharts extends React.Component {
         });
     }
     
+    async handleFetchAllH2hOddsDataFromBookArray_customApi() {
+        let isoCurrentDateTime = "";
+        let endDateIsoString = "";
+        let contestId = null;
+        let bookmakerArray = [];
+        let startDateIsoString = "";
+        if(this.state._selected_date && this.state._selected_contest.id && this.state._selected_book_array.length > 0)
+        {
+            console.log("hit inside line 264 liveCharts.js");
+            isoCurrentDateTime = this.state._selected_date.toISOString().substring(0, 19) + 'Z';
+            let currentDate = new Date(isoCurrentDateTime);
+            let startDate = new Date(isoCurrentDateTime);
+            currentDate.setDate(currentDate.getDate() + 1)
+            endDateIsoString = currentDate.toISOString().substring(0, 19) + 'Z';
+            startDate.setDate(startDate.getDate() - 2);
+            startDateIsoString = startDate.toISOString().substring(0, 19) + 'Z';
+            contestId = this.state._selected_contest.id;
+            bookmakerArray = this.state._selected_book_array;
+        }
+        //TODO: update these arguments for all sports NOT hardcoded for NFL
+        //TODO: iterate over the array and fetch the data from the api
+        for(let i = 0; i < bookmakerArray.length; i++)
+        {
+
+        }
+
+    }
     
     async handleFetchAndFilterH2hOddsData_customApi() 
     {
@@ -231,6 +258,7 @@ class LiveCharts extends React.Component {
             contestId = this.state._selected_contest.id;
             bookmaker = this.state._selected_book;
         }
+
         //TODO: update these arguments for all sports NOT hardcoded for NFL
         let bookMakerDataArray = await this.fetchH2hOddsData_customApi("nfl", "americanfootball_nfl", contestId, bookmaker, startDateIsoString, endDateIsoString);
         // console.log("fired in LiveCharts.js line 272 here is the bookMakerDataArray:")
