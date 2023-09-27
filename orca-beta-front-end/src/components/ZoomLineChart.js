@@ -173,7 +173,7 @@ class ZoomLineChart extends React.Component {
           }
           home_team = bookMakerDataArrayOfItems[0].bookmaker_data[0]["home_team"];
           away_team = bookMakerDataArrayOfItems[0].bookmaker_data[0]["away_team"];
-          categories_array = bookMakerDataArrayOfItems[0].bookmaker_data.map(obj => obj.last_update);
+          categories_array = bookMakerDataArrayOfItems[0].bookmaker_data.map(obj => obj.last_update.substring(5,9));
           console.log(home_team_data_array);
           console.log(away_team_data_array);
           
