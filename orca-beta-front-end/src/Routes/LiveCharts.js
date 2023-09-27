@@ -157,6 +157,8 @@ class LiveCharts extends React.Component {
     async fetchH2hOddsData_customApi(sport_name, sport, contestId, bookmaker, startDateIsoString, endDateIsoString)
     {
         const fullAPI = `${global.config.protocol}://${global.config.api_server}/api/get/pre-game-${sport_name}-odds-h2h-data?odds_api_game_id=${contestId}&sport=${sport}&bookmakerKey=${bookmaker}&startDate=${startDateIsoString}&endDate=${endDateIsoString}`;
+        console.log("line 160 full api in livecharts js")
+        console.log(fullAPI)
         //Check cache first
         // const cachedResponse = sessionStorage.getItem(fullAPI);
         // if (cachedResponse) {

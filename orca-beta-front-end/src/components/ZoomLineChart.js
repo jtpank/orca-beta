@@ -131,7 +131,7 @@ class ZoomLineChart extends React.Component {
           let max_of_both_arrays = 200;
           let home_team = "";
           let away_team = "";
-          if(Array.isArray(bookMakerDataArray))
+          if(Array.isArray(bookMakerDataArray) && bookMakerDataArray.length > 0)
           {
             home_team_price_array = bookMakerDataArray.map(obj => obj.home_team_price);
             away_team_price_array = bookMakerDataArray.map(obj => obj.away_team_price);
@@ -189,7 +189,9 @@ class ZoomLineChart extends React.Component {
          let max_of_both_arrays = 200;
          let home_team = "";
          let away_team = "";
-         if(Array.isArray(bookMakerDataArray))
+         console.log("line 192 zoom line chart: ")
+         console.log(bookMakerDataArray)
+         if(Array.isArray(bookMakerDataArray) && bookMakerDataArray.length > 0)
          {
            home_team_price_array = bookMakerDataArray.map(obj => obj.home_team_price);
            away_team_price_array = bookMakerDataArray.map(obj => obj.away_team_price);
