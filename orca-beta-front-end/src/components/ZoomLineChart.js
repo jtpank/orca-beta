@@ -120,8 +120,108 @@ class ZoomLineChart extends React.Component {
       };
 
       this.fetchDataAndUpdateState = this.fetchDataAndUpdateState.bind(this);
+      this.fetchAllSelectedCheckBoxBookLinesDataAndUpdateState = this.fetchAllSelectedCheckBoxBookLinesDataAndUpdateState.bind(this);
     }
 
+    async fetchAllSelectedCheckBoxBookLinesDataAndUpdateState() {
+      try {
+        let home_team_data_array = [];
+        let away_team_data_array = [];
+        let categories_array = [];
+        let home_team = "";
+        let away_team = "";
+        const bookMakerDataArrayOfItems = await this.props.handleFetchAllH2hOddsDataFromBookArray_customApi();
+        //data can be of different sizes* so bovada data is 200 elements, dk data is 190 elements for example
+        console.log("line 131 zoomlinechart.js ");
+        console.log(bookMakerDataArrayOfItems)
+        if(Array.isArray(bookMakerDataArrayOfItems) && bookMakerDataArrayOfItems.length > 0)
+        {
+          for(const bookArrayItem of bookMakerDataArrayOfItems)
+          {
+            let home_team_price_array = bookArrayItem.bookmaker_data.map(obj => obj.home_team_price);
+            let away_team_price_array = bookArrayItem.bookmaker_data.map(obj => obj.away_team_price);
+            //Multiplier array; if negative then multiplier is -1.0 * x / 100
+            // other wise multipler is x / 100
+            // so +200 ==> 2x multipler
+            // and -125 ==> 0.8 multipler
+            let home_team_multiplier_array = home_team_price_array.map(price => {
+              if (price >= 0) {
+                return (price / 100.00).toFixed(3);
+              } else {
+                return (-1.0 * price / 100.00).toFixed(3);
+              }
+            });
+            let away_team_multiplier_array = away_team_price_array.map(price => {
+              if (price >= 0) {
+                return (price / 100.00).toFixed(3);
+              } else {
+                return (-1.0 * price / 100.00).toFixed(3);
+              }
+            });
+            let dataItemHome = {
+              "bookmaker_key": bookArrayItem.bookmaker_key,
+              "home_team_price_array": home_team_price_array,
+              "home_multiplier_array": home_team_multiplier_array,
+            }
+            let dataItemAway = {
+              "bookmaker_key": bookArrayItem.bookmaker_key,
+              "away_team_price_array": away_team_price_array,
+              "away_multiplier_array": away_team_multiplier_array, 
+            }
+            home_team_data_array.push(dataItemHome);
+            away_team_data_array.push(dataItemAway)
+          }
+          home_team = bookMakerDataArrayOfItems[0].bookmaker_data[0]["home_team"];
+          away_team = bookMakerDataArrayOfItems[0].bookmaker_data[0]["away_team"];
+          categories_array = bookMakerDataArrayOfItems[0].bookmaker_data.map(obj => obj.last_update);
+          console.log(home_team_data_array);
+          console.log(away_team_data_array);
+          
+          let newSeries = [];
+          home_team_data_array.forEach((item) => {
+            const homeSeries = {
+              name: `${home_team} / Home / ${item.bookmaker_key}`,
+              data: item.home_multiplier_array,
+            };
+            newSeries.push(homeSeries);
+          });
+          away_team_data_array.forEach((item) => {
+            const awaySeries = {
+              name: `${away_team} / Home / ${item.bookmaker_key}`,
+              data: item.away_multiplier_array,
+            };
+            newSeries.push(awaySeries);
+          });
+
+
+          this.setState((prevState) => ({
+            series: newSeries,
+          options: {
+            ...prevState.options,
+                xaxis: {
+                  categories: categories_array,
+                  title: {
+                    text: "X Axis Label",
+                    style: {
+                      fontSize: "14px",
+                      fontWeight: 600,
+                      cssClass: "x-axis-label",
+                    },
+                  },
+                  
+                },
+                yaxis: {
+                  min: 0,
+                  max: 2,
+                }
+        },
+          }));
+        }
+      } catch (error) {
+        console.error('Error in fetchAllSelectedCheckBoxBookLinesDataAndUpdateState:', error);
+      }
+      
+    }
     async fetchDataAndUpdateState() {
       try {
         // Perform an asynchronous task, e.g., fetch data from an API
@@ -200,17 +300,17 @@ class ZoomLineChart extends React.Component {
       },
         }));
       } catch (error) {
-        console.error('Error:', error);
+        console.error('Error in fetchDataAndUpdateState:', error);
       }
     }
 
     async componentDidMount() {
-      await this.fetchDataAndUpdateState();
+      await this.fetchAllSelectedCheckBoxBookLinesDataAndUpdateState();
       console.log("success mount");
     }
     async componentDidUpdate(prevProps) {
-      if (this.props.selectedBook !== prevProps.selectedBook) {
-        await this.fetchDataAndUpdateState();
+      if (this.props.selectedBookArray !== prevProps.selectedBookArray) {
+        await this.fetchAllSelectedCheckBoxBookLinesDataAndUpdateState();
         console.log("success component update in zoomline chart!");
       }
     }

@@ -17,6 +17,7 @@ class LiveCharts extends React.Component {
             _selected_date: new Date(),
             _selected_contest: {"id": ""},
             _selected_book_array: [],
+            _linechart_data_for_all_bookmakers: [],
             _book_array: [],
             _game_array: [],
 
@@ -222,10 +223,21 @@ class LiveCharts extends React.Component {
         }
         //TODO: update these arguments for all sports NOT hardcoded for NFL
         //TODO: iterate over the array and fetch the data from the api
+        let arraysOfLinesForBookmakers = [];
         for(let i = 0; i < bookmakerArray.length; i++)
         {
-
+            const bookmaker = bookmakerArray[i];
+            let bookMakerDataArray = await this.fetchH2hOddsData_customApi("nfl", "americanfootball_nfl", contestId, bookmaker, startDateIsoString, endDateIsoString);
+            let bookmakerArrayItem = {
+                "bookmaker_key": bookmaker,
+                "bookmaker_data": bookMakerDataArray,
+            }
+            arraysOfLinesForBookmakers.push(bookmakerArrayItem);
         }
+        this.setState({
+            _linechart_data_for_all_bookmakers: arraysOfLinesForBookmakers
+        });
+        return arraysOfLinesForBookmakers;
 
     }
     
@@ -370,10 +382,10 @@ class LiveCharts extends React.Component {
         if(this.state._selected_sport != 'None' && this.state._selected_date && Object.values(this.state._selected_contest).every(value => ((value !== null) &&  (value !== ""))))
         {
             renderedSelectBook = <>
-                <DropDownSelect
+                {/* <DropDownSelect
                 handleSetBook = {this.handleSetBook}
                 selectedBook = {this.state._selected_book}
-                ></DropDownSelect>
+                ></DropDownSelect> */}
                 <CheckBoxSelect
                 selectedContest={this.state._selected_contest}
                 handleFetchBooksForContestId_customApi={this.handleFetchBooksForContestId_customApi}
@@ -383,13 +395,16 @@ class LiveCharts extends React.Component {
                 </CheckBoxSelect>
             </>
         }
-        if(this.state._selected_sport != 'None' && this.state._selected_date && this.state._selected_book != 'None' && Object.values(this.state._selected_contest).every(value => ((value !== null) &&  (value !== ""))))
+        if(this.state._selected_sport != 'None' && this.state._selected_date && 
+        this.state._selected_book_array.length > 0 && 
+        Object.values(this.state._selected_contest).every(value => ((value !== null) &&  (value !== ""))))
         {
            
             renderedChart = <>
             <p>Chart rendered!</p>
                 <ZoomLineChart
                 handleFetchAndFilterH2hOddsData_customApi={this.handleFetchAndFilterH2hOddsData_customApi}
+                handleFetchAllH2hOddsDataFromBookArray_customApi={this.handleFetchAllH2hOddsDataFromBookArray_customApi}
                 selectedBookArray = {this.state._selected_book_array}
                 selectedBook = {this.state._selected_book}
                 ></ZoomLineChart>
