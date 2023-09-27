@@ -46,3 +46,10 @@ html {
     transition: background-color 0.3s; /* Smooth color transition on hover */
     cursor: pointer; /* Change cursor on hover */
   }
+  .checkbox-container {
+    display: flex; /* Display checkboxes in a horizontal row */
+    flex-wrap: wrap; /* Allow wrapping to the next line if the container is not wide enough */
+  }
+  .form-check {
+    margin-right: 20px; /* Adjust the spacing between checkboxes */
+  }
