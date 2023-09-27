@@ -335,6 +335,7 @@ class LiveCharts extends React.Component {
                         class="btn btn-primary btn-block mb-4"
                         onClick={() => this.handleSetSport('NBA')}
                         >NBA</button>
+                        <p>JUST UPDATE!</p>
                     </div>
                     </>
         
