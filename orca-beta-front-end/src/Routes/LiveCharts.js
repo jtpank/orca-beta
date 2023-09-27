@@ -78,15 +78,12 @@ class LiveCharts extends React.Component {
         })
     }
     handleSetDate(date) {
-        console.log("date in handleSetDate:");
-        console.log(this.state._selected_date.toISOString().split("T")[0]);
         this.handleResetSelectContest();
         this.handleResetBook();
         this.setState((prevState) => ({
             _selected_date: new Date(date),
           }), () => {
             // This callback is called after the state has been updated.
-            // console.log("State has been updated:", this.state._selected_date);
           });
     }
     handleResetDate() {
@@ -157,14 +154,10 @@ class LiveCharts extends React.Component {
     async fetchH2hOddsData_customApi(sport_name, sport, contestId, bookmaker, startDateIsoString, endDateIsoString)
     {
         const fullAPI = `${global.config.protocol}://${global.config.api_server}/api/get/pre-game-${sport_name}-odds-h2h-data?odds_api_game_id=${contestId}&sport=${sport}&bookmakerKey=${bookmaker}&startDate=${startDateIsoString}&endDate=${endDateIsoString}`;
-        console.log("line 160 full api in livecharts js")
-        console.log(fullAPI)
         //Check cache first
         // const cachedResponse = sessionStorage.getItem(fullAPI);
         // if (cachedResponse) {
         //   const data = JSON.parse(cachedResponse);
-        //   console.log("data in line 207 of LiveCharts.js showing the SESSION CACHED data")
-        //   console.log(data.data)
         //   return data.data;
         // }
         // else
@@ -184,8 +177,6 @@ class LiveCharts extends React.Component {
                 //api looks like: /api/get/pre-game-nfl-odds-h2h-data?odds_api_game_id=217559949d3b88a1267c2c4c480eab51&sport=americanfootball_nfl&bookmakerKey=bovada&startDate=2023-09-14T00:00:00Z&endDate=2023-09-15T00:00:00Z HTTP/1.1
                 // data.data looks like: 
                 //[{"odds_api_game_id": "217559949d3b88a1267c2c4c480eab51", "sport_key": "americanfootball_nfl", "odds_api_bookmaker_key": "bovada", "commence_time": "2023-09-15T00:16:00Z", "last_update": "2023-09-14T02:19:42Z", "home_team": "Minnesota Vikings", "away_team": "Philadelphia Eagles", "home_team_price": 220, "away_team_price": 220}, {"odds_api_game_id": "217559949d3b88a1267c2c4c480eab51", "sport_key": "americanfootball_nfl", "odds_api_bookmaker_key": "bovada", "commence_time": "2023-09-15T00:16:00Z", "last_update": "2023-09-14T02:21:51Z", "home_team": "Minnesota Vikings", "away_team": "Philadelphia Eagles", "home_team_price": 220, "away_team_price": 220}]}
-                // console.log("data in line 226 of LiveCharts.js showing the response data")
-                // console.log(JSON.stringify(data))
                 // sessionStorage.setItem(fullAPI, JSON.stringify(data));
                 return data.data;
             }).catch((error) => {
@@ -219,7 +210,6 @@ class LiveCharts extends React.Component {
         let startDateIsoString = "";
         if(this.state._selected_date && this.state._selected_contest.id && this.state._selected_book_array.length > 0)
         {
-            console.log("hit inside line 264 liveCharts.js");
             isoCurrentDateTime = this.state._selected_date.toISOString().substring(0, 19) + 'Z';
             let currentDate = new Date(isoCurrentDateTime);
             let startDate = new Date(isoCurrentDateTime);
@@ -249,7 +239,6 @@ class LiveCharts extends React.Component {
         let startDateIsoString = "";
         if(this.state._selected_date && this.state._selected_contest.id && this.state._selected_book != 'None')
         {
-            console.log("hit inside line 264 liveCharts.js");
             isoCurrentDateTime = this.state._selected_date.toISOString().substring(0, 19) + 'Z';
             let currentDate = new Date(isoCurrentDateTime);
             let startDate = new Date(isoCurrentDateTime);
@@ -263,8 +252,6 @@ class LiveCharts extends React.Component {
 
         //TODO: update these arguments for all sports NOT hardcoded for NFL
         let bookMakerDataArray = await this.fetchH2hOddsData_customApi("nfl", "americanfootball_nfl", contestId, bookmaker, startDateIsoString, endDateIsoString);
-        // console.log("fired in LiveCharts.js line 272 here is the bookMakerDataArray:")
-        // console.log(bookMakerDataArray[0]);
         this.setState({
             _book_array: bookMakerDataArray,
         });
@@ -281,8 +268,6 @@ class LiveCharts extends React.Component {
         const cachedResponse = sessionStorage.getItem(fullAPI);
         if (cachedResponse) {
           const data = JSON.parse(cachedResponse);
-          console.log("line 248 bookmaker list from cache");
-          console.log(data);
           return data;
         }
         else
@@ -298,8 +283,6 @@ class LiveCharts extends React.Component {
                 };
                 //Store in the cache
                 let bookmakersFromContestIdArray =  data.data;
-                console.log("line 265 bookmaker list from api call");
-                console.log(bookmakersFromContestIdArray);
                 sessionStorage.setItem(fullAPI, JSON.stringify(bookmakersFromContestIdArray));
                 return bookmakersFromContestIdArray;
             }).catch((error) => {
