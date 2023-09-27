@@ -118,171 +118,100 @@ class ZoomLineChart extends React.Component {
       
       
       };
+
+      this.fetchDataAndUpdateState = this.fetchDataAndUpdateState.bind(this);
     }
 
-    async componentDidMount() {
-        try {
-          // Perform an asynchronous task, e.g., fetch data from an API
-          const bookMakerDataArray = await this.props.handleFetchAndFilterH2hOddsData_customApi();
-          let home_team_price_array = [];
-          let away_team_price_array = [];
-          let home_team_multiplier_array = [];
-          let away_team_multiplier_array = [];
-          let categories_array = [];
-          let min_of_both_arrays = -200;
-          let max_of_both_arrays = 200;
-          let home_team = "";
-          let away_team = "";
-          if(Array.isArray(bookMakerDataArray) && bookMakerDataArray.length > 0)
-          {
-            home_team_price_array = bookMakerDataArray.map(obj => obj.home_team_price);
-            away_team_price_array = bookMakerDataArray.map(obj => obj.away_team_price);
-            //Multiplier array; if negative then multiplier is -1.0 * x / 100
-            // other wise multipler is x / 100
-            // so +200 ==> 2x multipler
-            // and -125 ==> 0.8 multipler
-            home_team_multiplier_array = home_team_price_array.map(price => {
-              if (price >= 0) {
-                return (price / 100.00).toFixed(3);
-              } else {
-                return (-1.0 * price / 100.00).toFixed(3);
-              }
-            });
-            away_team_multiplier_array = away_team_price_array.map(price => {
-              if (price >= 0) {
-                return (price / 100.00).toFixed(3);
-              } else {
-                return (-1.0 * price / 100.00).toFixed(3);
-              }
-            });
-
-            console.log(away_team_multiplier_array)
-            categories_array = bookMakerDataArray.map(obj => obj.last_update);
-            let both_arrays = home_team_price_array.concat(away_team_price_array);
-            let both_multiplier_arrays = home_team_multiplier_array.concat(away_team_multiplier_array);
-            min_of_both_arrays = 0;//Math.floor(Math.min(...both_arrays)*1.5);
-            max_of_both_arrays = Math.ceil(Math.max(...both_multiplier_arrays)*1.5);//Math.floor(Math.max(...both_arrays)*1.5);
-            home_team = bookMakerDataArray[0]["home_team"];
-            away_team = bookMakerDataArray[0]["away_team"];
-          }
-          console.log("success mount")
-          this.setState((prevState) => ({
-            series: [
-              {
-                name: `${home_team} / Home`,
-                data:  home_team_multiplier_array,
-              },
-              {
-                name: `${away_team} / Away`,
-                data: away_team_multiplier_array,
-              }
-            ],
-          options: {
-            ...prevState.options,
-                xaxis: {
-                  categories: categories_array,
-                  title: {
-                    text: "X Axis Label",
-                    style: {
-                      fontSize: "14px",
-                      fontWeight: 600,
-                      cssClass: "x-axis-label",
-                    },
-                  },
-                  
-                },
-                yaxis: {
-                  min: min_of_both_arrays,
-                  max: max_of_both_arrays,
-                }
-        },
-          }));
-        } catch (error) {
-          console.error('Error:', error);
-        }
-    }
-    async componentDidUpdate(prevProps) {
-      if (this.props.selectedBook !== prevProps.selectedBook) {
-         // Perform an asynchronous task, e.g., fetch data from an API
-         const bookMakerDataArray = await this.props.handleFetchAndFilterH2hOddsData_customApi();
-         let home_team_price_array = [];
-         let away_team_price_array = [];
-         let home_team_multiplier_array = [];
-         let away_team_multiplier_array = [];
-         let categories_array = [];
-         let min_of_both_arrays = -200;
-         let max_of_both_arrays = 200;
-         let home_team = "";
-         let away_team = "";
-         if(Array.isArray(bookMakerDataArray) && bookMakerDataArray.length > 0)
-         {
-           home_team_price_array = bookMakerDataArray.map(obj => obj.home_team_price);
-           away_team_price_array = bookMakerDataArray.map(obj => obj.away_team_price);
-           //Multiplier array; if negative then multiplier is -1.0 * x / 100
-           // other wise multipler is x / 100
-           // so +200 ==> 2x multipler
-           // and -125 ==> 0.8 multipler
-           home_team_multiplier_array = home_team_price_array.map(price => {
+    async fetchDataAndUpdateState() {
+      try {
+        // Perform an asynchronous task, e.g., fetch data from an API
+        const bookMakerDataArray = await this.props.handleFetchAndFilterH2hOddsData_customApi();
+        let home_team_price_array = [];
+        let away_team_price_array = [];
+        let home_team_multiplier_array = [];
+        let away_team_multiplier_array = [];
+        let categories_array = [];
+        let min_of_both_arrays = -200;
+        let max_of_both_arrays = 200;
+        let home_team = "";
+        let away_team = "";
+        if(Array.isArray(bookMakerDataArray) && bookMakerDataArray.length > 0)
+        {
+          home_team_price_array = bookMakerDataArray.map(obj => obj.home_team_price);
+          away_team_price_array = bookMakerDataArray.map(obj => obj.away_team_price);
+          //Multiplier array; if negative then multiplier is -1.0 * x / 100
+          // other wise multipler is x / 100
+          // so +200 ==> 2x multipler
+          // and -125 ==> 0.8 multipler
+          home_team_multiplier_array = home_team_price_array.map(price => {
             if (price >= 0) {
               return (price / 100.00).toFixed(3);
             } else {
               return (-1.0 * price / 100.00).toFixed(3);
             }
-            });
-            away_team_multiplier_array = away_team_price_array.map(price => {
-              if (price >= 0) {
-                return (price / 100.00).toFixed(3);
-              } else {
-                return (-1.0 * price / 100.00).toFixed(3);
-              }
-            });
+          });
+          away_team_multiplier_array = away_team_price_array.map(price => {
+            if (price >= 0) {
+              return (price / 100.00).toFixed(3);
+            } else {
+              return (-1.0 * price / 100.00).toFixed(3);
+            }
+          });
 
-           categories_array = bookMakerDataArray.map(obj => obj.last_update);
-           let both_arrays = home_team_price_array.concat(away_team_price_array);
-           let both_multiplier_arrays = home_team_multiplier_array.concat(away_team_multiplier_array);
-           min_of_both_arrays = 0;//Math.floor(Math.min(...both_arrays)*1.5);
-           max_of_both_arrays = Math.ceil(Math.max(...both_multiplier_arrays)*1.5);//Math.floor(Math.max(...both_arrays)*1.5);
-           home_team = bookMakerDataArray[0]["home_team"];
-           away_team = bookMakerDataArray[0]["away_team"];
-         }
-        try {
-          // Perform an asynchronous task, e.g., fetch data from an API
-          const bookMakerDataArray = await this.props.handleFetchAndFilterH2hOddsData_customApi();
-          console.log("success component update in zoomline chart!")
-          this.setState((prevState) => ({
-            series: [
-              {
-                name: `${home_team} / Home`,
-                data:  home_team_multiplier_array,
-              },
-              {
-                name: `${away_team} / Away`,
-                data: away_team_multiplier_array,
-              }
-            ],
-          options: {
-            ...prevState.options,
-                xaxis: {
-                  categories: categories_array,
-                  title: {
-                    text: "X Axis Label",
-                    style: {
-                      fontSize: "14px",
-                      fontWeight: 600,
-                      cssClass: "x-axis-label",
-                    },
-                  },
-                  
-                },
-                yaxis: {
-                  min: min_of_both_arrays,
-                  max: max_of_both_arrays,
-                }
-        },
-          }));
-        } catch (error) {
-          console.error('Error:', error);
+          console.log(away_team_multiplier_array)
+          categories_array = bookMakerDataArray.map(obj => obj.last_update);
+          let both_arrays = home_team_price_array.concat(away_team_price_array);
+          let both_multiplier_arrays = home_team_multiplier_array.concat(away_team_multiplier_array);
+          min_of_both_arrays = 0;//Math.floor(Math.min(...both_arrays)*1.5);
+          max_of_both_arrays = Math.ceil(Math.max(...both_multiplier_arrays)*1.5);//Math.floor(Math.max(...both_arrays)*1.5);
+          home_team = bookMakerDataArray[0]["home_team"];
+          away_team = bookMakerDataArray[0]["away_team"];
         }
+        console.log("success mount")
+        this.setState((prevState) => ({
+          series: [
+            {
+              name: `${home_team} / Home`,
+              data:  home_team_multiplier_array,
+            },
+            {
+              name: `${away_team} / Away`,
+              data: away_team_multiplier_array,
+            }
+          ],
+        options: {
+          ...prevState.options,
+              xaxis: {
+                categories: categories_array,
+                title: {
+                  text: "X Axis Label",
+                  style: {
+                    fontSize: "14px",
+                    fontWeight: 600,
+                    cssClass: "x-axis-label",
+                  },
+                },
+                
+              },
+              yaxis: {
+                min: min_of_both_arrays,
+                max: max_of_both_arrays,
+              }
+      },
+        }));
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+
+    async componentDidMount() {
+      await this.fetchDataAndUpdateState();
+      console.log("success mount");
+    }
+    async componentDidUpdate(prevProps) {
+      if (this.props.selectedBook !== prevProps.selectedBook) {
+        await this.fetchDataAndUpdateState();
+        console.log("success component update in zoomline chart!");
       }
     }
 
